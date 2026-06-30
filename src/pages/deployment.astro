@@ -1,0 +1,31 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="Deployment — Autional Docs">
+  <h1 class="text-3xl font-bold mb-6">Deployment</h1>
+  <p class="mb-6 text-neutral-600 dark:text-neutral-300">Deploy Autional in production with Docker compose, Kubernetes, or self-hosted bare metal.</p>
+  <h2 class="text-xl font-bold mt-8 mb-3">Docker Compose</h2>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">git clone https://github.com/autional/authms
+cd authms
+# Production: use separate infra + services compose files
+docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3">Configuration</h2>
+  <p class="mb-4 text-neutral-600">Key environment variables to set for production:</p>
+  <table class="w-full text-sm mb-6 border-collapse">
+    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">Variable</th><th class="text-left font-medium py-2">Description</th><th class="text-left font-medium py-2">Required</th></tr></thead>
+    <tbody>
+      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">JWT_SECRET</td><td class="py-2">Token signing key (min 32 chars)</td><td class="py-2 text-green-600">Yes</td></tr>
+      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">PASSWORD_PEPPER</td><td class="py-2">Pepper for password hashing</td><td class="py-2 text-green-600">Yes</td></tr>
+      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">INTERNAL_API_KEY</td><td class="py-2">Service-to-service auth</td><td class="py-2 text-green-600">Yes</td></tr>
+      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">PG_PASSWORD</td><td class="py-2">PostgreSQL password</td><td class="py-2 text-green-600">Yes</td></tr>
+      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">REDIS_PASSWORD</td><td class="py-2">Redis password</td><td class="py-2 text-green-600">Yes</td></tr>
+    </tbody>
+  </table>
+  <h2 class="text-xl font-bold mt-8 mb-3">SSL / TLS</h2>
+  <p class="mb-4 text-neutral-600">For production, use Let's Encrypt or your CA. The gateway nginx handles SSL termination. See <code class="bg-neutral-100 px-1 rounded">docker/nginx/certs/</code> for reference self-signed certificates.</p>
+  <h2 class="text-xl font-bold mt-8 mb-3">Monitoring</h2>
+  <p class="mb-4 text-neutral-600">Prometheus + Grafana dashboards are included for monitoring all 24 services. Alertmanager handles alert routing. OpenTelemetry tracing via Jaeger.</p>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6"># Monitoring stack
+docker compose -f docker-compose.monitoring.yml up -d
+# Grafana: http://localhost:13000  (admin/admin)</pre>
+</DocLayout>

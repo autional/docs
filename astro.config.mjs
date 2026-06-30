@@ -1,2 +1,3 @@
 import { defineConfig } from 'astro/config';
-export default defineConfig({ output: 'static', site: 'https://docs.autional.com', base: '/' });
+import tailwind from '@astrojs/tailwind';
+export default defineConfig({ integrations: [tailwind()], output: 'static', site: 'https://docs.autional.com', base: '/' });

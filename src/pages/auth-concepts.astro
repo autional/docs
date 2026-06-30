@@ -1,0 +1,37 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="Auth Concepts — Autional Docs">
+<h1 class="text-3xl font-bold mb-6">Authentication Concepts</h1>
+<p class="mb-6 text-neutral-600">How authentication works in Autional — from password hashing to OIDC flows.</p>
+<h2 class="text-xl font-bold mb-3 mt-8">Password Transmission Modes</h2>
+<p class="mb-4 text-neutral-600">Autional supports 4 password modes, configurable per tenant:</p>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">Mode</th><th class="text-left font-medium py-2 px-2">Security</th><th class="text-left font-medium py-2 px-2">Use Case</th></tr></thead><tbody>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">plain</td><td class="py-2 px-2">Low</td><td class="py-2 px-2">Localhost dev, trusted network</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">hash</td><td class="py-2 px-2">Medium</td><td class="py-2 px-2">Standard SaaS, HTTPS required</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">symmetric</td><td class="py-2 px-2">High</td><td class="py-2 px-2">ECDH key exchange + AES-256-GCM</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">asymmetric</td><td class="py-2 px-2">Highest</td><td class="py-2 px-2">RSA-OAEP, regulated industries</td></tr>
+</tbody></table>
+<h2 class="text-xl font-bold mb-3 mt-8">Password Hashing (Server-Side)</h2>
+<p class="mb-4 text-neutral-600">After transmission, passwords are hashed with <strong>argon2id</strong> (KDF) + <strong>PASSWORD_PEPPER</strong>. The system also includes bcrypt fallback for legacy compatibility. Per-tenant algorithm selection is supported.</p>
+<h2 class="text-xl font-bold mb-3 mt-8">Session & Token Flow</h2>
+<pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">User Login → POST /auth/login
+  ├─ Returns: access_token (JWT, 30min) + refresh_token (24h)
+  ├─ Access token: sent as Authorization Bearer header
+  ├─ Refresh: POST /auth/refresh → new token pair
+  └─ Logout: POST /auth/logout → revoke tokens, blacklist</pre>
+<h2 class="text-xl font-bold mb-3 mt-8">OAuth 2.1 / OIDC</h2>
+<p class="mb-4 text-neutral-600">Autional implements the full OAuth 2.1 + OpenID Connect provider stack:</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li>Authorization Code + PKCE (RFC 7636)</li>
+<li>Client Credentials (M2M)</li>
+<li>Device Authorization (RFC 8628)</li>
+<li>Token Exchange (RFC 8693) — NHI and AI Agent auth</li>
+<li>DPoP (Demonstrating Proof of Possession)</li>
+<li>JARM (JWT-Secured Authorization Response)</li>
+<li>Dynamic Client Registration (RFC 7591)</li>
+<li>Rich Authorization Request (RFC 9396)</li>
+</ul>
+<h2 class="text-xl font-bold mb-3 mt-8">SAML 2.0</h2>
+<p class="mb-4 text-neutral-600">Enterprise SSO via SAML 2.0 IdP, with metadata exchange, SLO, and attribute mapping. Configured through the Admin Console.</p>
+</DocLayout>

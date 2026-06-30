@@ -1,0 +1,38 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="Security Guide — Autional Docs">
+<h1 class="text-3xl font-bold mb-6">Security Guide</h1>
+<p class="mb-6 text-neutral-600">Security best practices for configuring Autional in production environments.</p>
+<h2 class="text-xl font-bold mb-3 mt-8">MFA Configuration</h2>
+<p class="mb-4 text-neutral-600">Autional supports 5 MFA methods, configurable per tenant:</p>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">Method</th><th class="text-left font-medium py-2 px-2">Phishing Resistance</th><th class="text-left font-medium py-2 px-2">Setup</th></tr></thead><tbody>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2">TOTP (Authenticator App)</td><td class="py-2 px-2">Medium</td><td class="py-2 px-2">1 min</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2">WebAuthn / Passkey / FIDO2</td><td class="py-2 px-2">✅ High</td><td class="py-2 px-2">1 min</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2">SMS OTP</td><td class="py-2 px-2">Low (SIM swap risk)</td><td class="py-2 px-2">Instant</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2">Email OTP</td><td class="py-2 px-2">Medium</td><td class="py-2 px-2">Instant</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2">Push Notification</td><td class="py-2 px-2">Medium</td><td class="py-2 px-2">1 min</td></tr>
+</tbody></table>
+<h2 class="text-xl font-bold mb-3 mt-8">Adaptive MFA (Risk Engine)</h2>
+<p class="mb-4 text-neutral-600">The adaptive MFA engine evaluates 7 signals to determine authentication risk:</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li><strong>Device</strong> — trusted device, new device, known fingerprint</li>
+<li><strong>IP</strong> — known location, geo-velocity anomalies</li>
+<li><strong>Behavior</strong> — time of day, login frequency, action sensitivity</li>
+<li><strong>Velocity</strong> — rapid successive attempts, brute force detection</li>
+<li><strong>Credential leak</strong> — breached password check (HIBP)</li>
+</ul>
+<h2 class="text-xl font-bold mb-3 mt-8">Password Policy</h2>
+<p class="mb-4 text-neutral-600">Per-tenant configurable password policies:</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li>Minimum/maximum length, complexity rules (upper, lower, digit, special)</li>
+<li>Password history (N previous passwords prevented)</li>
+<li>Expiry (configurable days, forced reset)</li>
+<li>Breach detection (HIBP database check)</li>
+<li>Account lockout (threshold + duration)</li>
+</ul>
+<h2 class="text-xl font-bold mb-3 mt-8">Encryption at Rest</h2>
+<p class="mb-4 text-neutral-600">Field-level AES-256-GCM encryption with key rotation. SM4-GCM for national cryptography compliance. 14 encryption points across the system.</p>
+<h2 class="text-xl font-bold mb-3 mt-8">Audit Trail</h2>
+<p class="mb-4 text-neutral-600">All authentication events are recorded in an immutable Merkle hash chain audit log. Cryptographic verification ensures tamper-proof integrity.</p>
+</DocLayout>

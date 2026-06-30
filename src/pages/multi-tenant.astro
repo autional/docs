@@ -1,0 +1,34 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="Multi-Tenancy — Autional Docs">
+<h1 class="text-3xl font-bold mb-6">Multi-Tenancy Guide</h1>
+<p class="mb-6 text-neutral-600">Autional was built for B2B SaaS multi-tenancy from day one. Every feature is tenant-aware by design.</p>
+<h2 class="text-xl font-bold mb-3 mt-8">Three-Layer Isolation</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">Layer</th><th class="text-left font-medium py-2 px-2">Enforcement</th><th class="text-left font-medium py-2 px-2">CI Check</th></tr></thead><tbody>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2"><strong>1. Schema</strong></td><td class="py-2 px-2">Every table has tenant_id column</td><td class="py-2">✅</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2"><strong>2. Repository</strong></td><td class="py-2 px-2">Every query includes tenant_id WHERE clause</td><td class="py-2">✅</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 px-2"><strong>3. Handler</strong></td><td class="py-2 px-2">tenant_id derived from auth context, never from request body</td><td class="py-2">✅</td></tr>
+</tbody></table>
+<h2 class="text-xl font-bold mb-3 mt-8">Tenant Configuration</h2>
+<p class="mb-4 text-neutral-600">Each tenant can independently configure:</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li><strong>Password policy</strong> — min length, complexity, expiry, breach check</li>
+<li><strong>MFA policy</strong> — required methods, risk thresholds</li>
+<li><strong>Session policy</strong> — timeout duration, refresh limits</li>
+<li><strong>Branding</strong> — custom login page, logo, colors, domain</li>
+<li><strong>Feature gates</strong> — plan-based feature enablement</li>
+<li><strong>SSO providers</strong> — SAML/OIDC IdP configuration</li>
+</ul>
+<h2 class="text-xl font-bold mb-3 mt-8">Member Management</h2>
+<p class="mb-4 text-neutral-600">Tenant members are managed through invitation workflow:</p>
+<pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">Admin invites → User receives email → User accepts → Role assigned</pre>
+<p class="mb-4 text-neutral-600">Supports departmental hierarchy, delegated administration, and bulk imports (SCIM 2.0).</p>
+<h2 class="text-xl font-bold mb-3 mt-8">NHI (Non-Human Identity)</h2>
+<p class="mb-4 text-neutral-600">AI agents, robots, and IoT devices are first-class identity citizens in Autional. Each NHI type has its own lifecycle state machine and authentication methods.</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li><strong>Agent</strong>: provisioning → active → rotating → revoked → deleted</li>
+<li><strong>Robot</strong>: commissioning → active → degraded → decommissioned → deleted</li>
+<li><strong>Device</strong>: unpaired → active → transferring → revoked → deleted</li>
+</ul>
+</DocLayout>

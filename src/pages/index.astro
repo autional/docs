@@ -1,21 +1,62 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+
+const steps = [
+  {
+    title: 'Clone and boot the platform',
+    body: 'Start the local stack so every service, gateway route, and operational dependency is available for exploration.',
+    command: `git clone https://github.com/autional/authms
+cd authms
+docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d`,
+  },
+  {
+    title: 'Verify the gateway',
+    body: 'Check health first, then move into the interactive docs once the gateway is responding.',
+    command: `curl http://localhost:11080/health
+open http://localhost:11080/docs/`,
+  },
+  {
+    title: 'Sign in to the admin console',
+    body: 'Use the default local credentials to inspect tenants, auth flows, policies, and configuration from the UI.',
+    command: `http://localhost:11080
+admin@admin.com`,
+  },
+];
+
+const links = [
+  ['Architecture', '/architecture', 'Understand the 4-tier architecture, shared layers, and 24 microservices.'],
+  ['Security Guide', '/security', 'Review MFA, audit, encryption, and production hardening decisions.'],
+  ['API Reference', '/api', 'Inspect gateway docs, service paths, and OpenAPI entry points.'],
+  ['Deployment', '/deployment', 'Move from local development to repeatable production deployment.'],
+];
 ---
 <DocLayout title="Quick Start — Autional Docs">
-  <h1 class="text-3xl font-bold mb-6">Quick Start</h1>
-  <p class="mb-6 text-neutral-600 dark:text-neutral-300">Run the entire Autional platform locally in 3 steps.</p>
-  <h2 class="text-xl font-bold mt-8 mb-3">1. Clone &amp; Start</h2>
-  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">git clone https://github.com/autional/authms
-cd authms
-docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d</pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">2. Verify</h2>
-  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">curl http://localhost:11080/health</pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">3. Admin Console</h2>
-  <p class="mb-6 text-neutral-600 dark:text-neutral-300">Visit <a href="http://localhost:11080" class="text-primary-600 underline">http://localhost:11080</a> — login with <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">admin@admin.com</code></p>
-  <h2 class="text-xl font-bold mt-8 mb-3">Next Steps</h2>
-  <ul class="list-disc pl-6 space-y-2 text-neutral-600 dark:text-neutral-300">
-    <li>Explore the <a href="/api" class="text-primary-600 underline">API Reference</a></li>
-    <li>Integrate the SDK into your app</li>
-    <li>Configure production deployment</li>
-  </ul>
+  <span class="brand-kicker">Documentation Portal</span>
+  <h1 class="mt-5">Run the full Autional platform locally in 3 clear steps.</h1>
+  <p>
+    This documentation hub is designed to get new engineers from local boot to system understanding quickly. Start the platform, validate the gateway, then move into the docs that match your task: architecture, APIs, security, or deployment.
+  </p>
+
+  <div class="mt-8 grid gap-5 xl:grid-cols-3">
+    {steps.map((step, index) => (
+      <section class="brand-card px-6 py-6">
+        <div class="flex items-center gap-3">
+          <span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-700 text-sm font-bold text-white">{index + 1}</span>
+          <h2 class="mt-0 text-xl font-semibold text-primary-900">{step.title}</h2>
+        </div>
+        <p class="mt-4">{step.body}</p>
+        <pre>{step.command}</pre>
+      </section>
+    ))}
+  </div>
+
+  <h2>Next Stops</h2>
+  <div class="mt-5 grid gap-4 md:grid-cols-2">
+    {links.map(([label, href, description]) => (
+      <a href={href} class="brand-card block px-6 py-5 no-underline">
+        <div class="text-lg font-semibold text-primary-900">{label}</div>
+        <p class="mt-2 text-sm leading-7 text-neutral-600">{description}</p>
+      </a>
+    ))}
+  </div>
 </DocLayout>

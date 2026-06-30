@@ -1,0 +1,34 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+const vars = [
+  { name: 'JWT_SECRET', desc: 'Token signing key (min 32 chars)', required: true, default: '—' },
+  { name: 'PASSWORD_PEPPER', desc: 'Pepper for argon2id password hashing', required: true, default: '—' },
+  { name: 'INTERNAL_API_KEY', desc: 'Service-to-service authentication', required: true, default: '—' },
+  { name: 'POSTGRES_HOST', desc: 'PostgreSQL hostname', required: true, default: 'localhost' },
+  { name: 'POSTGRES_PORT', desc: 'PostgreSQL port', required: false, default: '5432' },
+  { name: 'POSTGRES_USER', desc: 'PostgreSQL user', required: true, default: 'authuser' },
+  { name: 'POSTGRES_PASSWORD', desc: 'PostgreSQL password', required: true, default: 'authpassword' },
+  { name: 'REDIS_HOST', desc: 'Redis hostname', required: false, default: 'localhost' },
+  { name: 'REDIS_PORT', desc: 'Redis port', required: false, default: '6379' },
+  { name: 'REDIS_PASSWORD', desc: 'Redis password', required: false, default: '' },
+  { name: 'RABBITMQ_HOST', desc: 'RabbitMQ hostname', required: false, default: 'localhost' },
+  { name: 'RABBITMQ_PORT', desc: 'RabbitMQ port', required: false, default: '5672' },
+  { name: 'APP_ENV', desc: 'Environment: development | production', required: false, default: 'development' },
+  { name: 'MONGO_URI', desc: 'MongoDB URI (audit service)', required: false, default: '—' },
+  { name: 'MINIO_ENDPOINT', desc: 'MinIO/S3 endpoint (storage)', required: false, default: '—' },
+];
+---
+<DocLayout title="Configuration — Autional Docs">
+<h1 class="text-3xl font-bold mb-6">Configuration Reference</h1>
+<p class="mb-6 text-neutral-600">All environment variables used by the 24 Autional microservices. Set these in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">.env</code> or <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/*.yaml</code>.</p>
+<table class="w-full text-sm border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">Variable</th><th class="text-left font-medium py-2 px-2">Description</th><th class="text-left font-medium py-2 px-2">Required</th><th class="text-left font-medium py-2 px-2">Default</th></tr></thead><tbody>
+{vars.map(v => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2">{v.desc}</td><td class="py-2 px-2">{v.required ? <span class="text-green-600">Yes</span> : <span class="text-neutral-400">No</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
+</tbody></table>
+<h2 class="text-xl font-bold mt-8 mb-3">Configuration Files</h2>
+<p class="mb-4 text-neutral-600">Each service reads YAML config from <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/{name}.yaml</code>. Database settings are in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/{name}.gorm.yaml</code>. View all config files:</p>
+<pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6"># configs/service/ directory contains:
+configs/service/identity-service.yaml
+configs/service/identity-service.gorm.yaml
+configs/service/mfa-service.yaml
+...</pre>
+</DocLayout>

@@ -1,0 +1,35 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="Architecture — Autional Docs">
+<h1 class="text-3xl font-bold mb-6">Architecture</h1>
+<p class="mb-6 text-neutral-600">Autional runs as 24 independently deployable Go microservices, organized in a 4-tier architecture with a cross-cutting layer.</p>
+
+<h2 class="text-xl font-bold mt-8 mb-3">Tier 1: Foundation</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">Layer</th><th class="text-left font-medium py-2">Modules</th><th class="text-left font-medium py-2">Purpose</th></tr></thead><tbody>
+<tr class="border-b border-neutral-100"><td class="py-2 font-mono text-primary-600">base/</td><td class="py-2">base/error, base/config, base/idgen</td><td class="py-2">Zero-dependency foundation: errors, config loading, ID generation</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 font-mono text-primary-600">util/</td><td class="py-2">util/jwt, util/random, util/retry</td><td class="py-2">Utilities with minimal external dependencies</td></tr>
+</tbody></table>
+
+<h2 class="text-xl font-bold mt-8 mb-3">Tier 2: Infrastructure</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">Module</th><th class="text-left font-medium py-2">Integration</th><th class="text-left font-medium py-2">Port</th></tr></thead><tbody>
+<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/gorm</td><td class="py-2">PostgreSQL, MySQL</td><td class="py-2 font-mono">5432</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/redis</td><td class="py-2">Redis, Valkey</td><td class="py-2 font-mono">6379</td></tr>
+<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/messagequeue</td><td class="py-2">RabbitMQ, Kafka</td><td class="py-2 font-mono">5672</td></tr>
+</tbody></table>
+
+<h2 class="text-xl font-bold mt-8 mb-3">Tier 3: Domain</h2>
+<p class="mb-4 text-neutral-600">Shared domain models under <code class="bg-neutral-100 px-1 rounded">micro-share/</code> and middleware in <code class="bg-neutral-100 px-1 rounded">micro-middleware/</code>.</p>
+<ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
+<li><strong>middleware:</strong> auth (JWT/IP whitelist), app bootstrap, gRPC factory, error handler, audit, tenant resolver</li>
+<li><strong>shared:</strong> domain events (600+ event types), RBAC, ABAC, ReBAC, PIM, compliance, wallet, billing, notification</li>
+</ul>
+
+<h2 class="text-xl font-bold mt-8 mb-3">Tier 4: Business Services (24)</h2>
+<div class="grid sm:grid-cols-2 gap-3 mb-6">
+{['Identity (11001)','Profile (11002)','Tenant (11003)','Session (11004)','MFA (11005)','OAuth (11006)','Wallet (11011)','Point (11012)','Audit (11013)','Notification (11014)','Communication (11015)','Storage (11016)','Billing (11017)','Compliance (11018)','Status (11019)','Secret (11020)','SAML (11021)','Pay (11022)','Thirdparty (11023)','Verification (11024)','RBAC (11025)','Gateway (11080)','Hash-standard (gRPC)','Hash-sm (gRPC)'].map(s => <div class="rounded-lg border border-neutral-200 dark:border-neutral-800 p-3 text-sm font-mono">{s}</div>)}
+</div>
+
+<h2 class="text-xl font-bold mt-8 mb-3">Cross-Cutting</h2>
+<p class="mb-4 text-neutral-600"><code class="bg-neutral-100 px-1 rounded">cross/registry/</code> — ports, error codes, event names, table names, RBAC permissions. Every service depends on this layer.</p>
+</DocLayout>

@@ -1,0 +1,28 @@
+{
+    "headers": [
+        {
+            "source": "/api/:path*",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=3600" }
+            ]
+        },
+        {
+            "source": "/sitemap.xml",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=3600" }
+            ]
+        },
+        {
+            "source": "/robots.txt",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=86400" }
+            ]
+        },
+        {
+            "source": "/",
+            "headers": [
+                { "key": "Cache-Control", "value": "public, max-age=3600" }
+            ]
+        }
+    ]
+}

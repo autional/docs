@@ -25,7 +25,7 @@ const vars = [
 {vars.map(v => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2">{v.desc}</td><td class="py-2 px-2">{v.required ? <span class="text-green-600">Yes</span> : <span class="text-neutral-400">No</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
 </tbody></table>
 <h2 class="text-xl font-bold mt-8 mb-3">Configuration Files</h2>
-<p class="mb-4 text-neutral-600">Each service reads YAML config from <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/{name}.yaml</code>. Database settings are in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/{name}.gorm.yaml</code>. View all config files:</p>
+<p class="mb-4 text-neutral-600">Each service reads YAML config from <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/&#123;name&#125;.yaml</code>. Database settings are in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/&#123;name&#125;.gorm.yaml</code>. View all config files:</p>
 <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6"># configs/service/ directory contains:
 configs/service/identity-service.yaml
 configs/service/identity-service.gorm.yaml

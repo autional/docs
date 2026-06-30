@@ -1,28 +1,73 @@
 ---
+import '../styles/global.css';
+
 const { title = 'Autional Docs' } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
+const pathname = Astro.url.pathname;
+const navigation = [
+  { href: '/', label: 'Quick Start' },
+  { href: '/architecture', label: 'Architecture' },
+  { href: '/auth-concepts', label: 'Auth Concepts' },
+  { href: '/security', label: 'Security Guide' },
+  { href: '/multi-tenant', label: 'Multi-Tenancy' },
+  { href: '/compliance', label: 'Compliance' },
+  { href: '/api', label: 'API Reference' },
+  { href: '/configuration', label: 'Configuration' },
+  { href: '/deployment', label: 'Deployment' },
+  { href: '/sdk', label: 'SDK' },
+];
 ---
-<!DOCTYPE html><html lang="en">
-<head><meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>{title}</title><link rel="canonical" href={canonical.href}/>
-<link rel="icon" type="image/svg+xml" href="/favicon.svg"/>
-</head>
-<body class="min-h-screen bg-white dark:bg-slate-950 text-neutral-900 dark:text-white antialiased flex">
-  <aside class="w-64 shrink-0 border-r border-neutral-200 dark:border-neutral-800 p-6 hidden md:block">
-    <a href="/" class="text-lg font-bold text-primary-600">Autional Docs</a>
-    <a href="https://www.autional.com" class="mt-2 block text-xs text-neutral-400 hover:text-primary-600">← Back to www</a>
-    <nav class="mt-8 space-y-1 text-sm">
-      <a href="/" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Quick Start</a>
-      <a href="/architecture" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Architecture</a>
-      <a href="/auth-concepts" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Auth Concepts</a>
-      <a href="/security" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Security Guide</a>
-      <a href="/multi-tenant" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Multi-Tenancy</a>
-      <a href="/compliance" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Compliance</a>
-      <a href="/api" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">API Reference</a>
-      <a href="/configuration" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Configuration</a>
-      <a href="/deployment" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">Deployment</a>
-      <a href="/sdk" class="block rounded px-3 py-2 text-neutral-700 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-slate-800">SDK</a>
-    </nav>
-  </aside>
-  <main class="flex-1 p-8 max-w-4xl"><slot/></main>
-</body></html>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <title>{title}</title>
+    <link rel="canonical" href={canonical.href} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;500;600;700;800&family=Source+Han+Serif+SC:wght@600&display=swap" rel="stylesheet" />
+  </head>
+  <body class="min-h-screen text-neutral-900">
+    <div class="relative overflow-hidden">
+      <div class="absolute inset-x-0 top-0 -z-10 h-[28rem] bg-gradient-to-b from-sky-100/60 via-white/0 to-transparent"></div>
+      <header class="sticky top-0 z-50 border-b border-white/60 bg-white/82 backdrop-blur-xl">
+        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
+          <a href="/" class="flex items-center gap-4">
+            <img src="/logo-mark.svg" alt="Autional logo" class="h-10 w-10 object-contain" />
+            <div>
+              <div class="text-lg font-extrabold tracking-[-0.04em] text-primary-800">Autional</div>
+              <div class="text-xs font-medium uppercase tracking-[0.28em] text-neutral-400">Documentation</div>
+            </div>
+          </a>
+          <div class="hidden items-center gap-4 lg:flex">
+            <span class="brand-kicker">Docs Portal</span>
+            <a href="https://www.autional.com" class="brand-button-secondary px-4 py-2 text-xs">Back To Main Site</a>
+          </div>
+        </div>
+      </header>
+
+      <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
+        <aside class="lg:sticky lg:top-24 lg:self-start">
+          <div class="brand-shell px-5 py-6">
+            <p class="text-sm leading-7 text-neutral-600">
+              Product architecture, identity concepts, operational guidance, and API references for teams building on Autional.
+            </p>
+            <nav class="mt-6 space-y-2">
+              {navigation.map((item) => (
+                <a href={item.href} class="docs-nav-link" data-active={pathname === item.href ? 'true' : 'false'}>{item.label}</a>
+              ))}
+            </nav>
+          </div>
+        </aside>
+
+        <main class="min-w-0">
+          <article class="docs-prose brand-shell px-6 py-8 sm:px-10 sm:py-10">
+            <slot />
+          </article>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

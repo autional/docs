@@ -1,0 +1,30 @@
+---
+import DocLayout from '../layouts/DocLayout.astro';
+---
+<DocLayout title="SDK — Autional Docs">
+  <h1 class="text-3xl font-bold mb-6">SDK</h1>
+  <p class="mb-6 text-neutral-600 dark:text-neutral-300">30+ packages covering React, Vue, Next.js, Node.js, and 19 auto-generated API clients.</p>
+  <h2 class="text-xl font-bold mt-8 mb-3">React</h2>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">npm install @autional/react @autional/core</pre>
+  <p class="mb-4 text-neutral-600">Provider component that wraps your app with authentication context:</p>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6" set:html="import { AuthProvider } from '@autional/react';\n\nfunction App() {\n  return (\n    <AuthProvider>\n      <YourApp />\n    </AuthProvider>\n  );\n}"></pre>
+  <h2 class="text-xl font-bold mt-8 mb-3">Vue</h2>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">npm install @autional/vue @autional/core</pre>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">import { createApp } from 'vue';
+import AutionalPlugin from '@autional/vue';
+
+const app = createApp(App);
+app.use(AutionalPlugin);
+app.mount('#app');</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3">Node.js</h2>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">npm install @autional/node</pre>
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">import { verifyToken } from '@autional/node';
+
+app.use(async (req, res, next) =&gt; {
+  const user = await verifyToken(req);
+  req.user = user;
+  next();
+});</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3">All Packages</h2>
+  <p class="mb-4 text-neutral-600">Browse the full SDK catalog at <a href="https://www.autional.com/sdk" class="text-primary-600 underline">www.autional.com/sdk</a> or the source on <a href="https://github.com/autional/authms/tree/main/sdk" class="text-primary-600 underline">GitHub</a>.</p>
+</DocLayout>

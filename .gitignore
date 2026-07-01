@@ -3,3 +3,4 @@ dist/
 .vite/
 .astro/
 .env
+pnpm-workspace.yaml

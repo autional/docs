@@ -1,9 +1,19 @@
 ---
 import '../styles/global.css';
 
-const { title = 'Autional Docs' } = Astro.props;
+export interface Props {
+  title?: string;
+  description?: string;
+  keywords?: string;
+}
+const {
+  title = 'Autional Docs',
+  description = 'Autional product documentation — architecture, authentication, security, multi-tenancy, compliance, deployment, and SDK guides.',
+  keywords,
+} = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const pathname = Astro.url.pathname;
+const ogImage = new URL('/og-default.png', Astro.site).href;
 const navigation = [
   { href: '/', label: 'Quick Start' },
   { href: '/architecture', label: 'Architecture' },
@@ -23,6 +33,8 @@ const navigation = [
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
     <title>{title}</title>
+    <meta name="description" content={description} />
+    {keywords && <meta name="keywords" content={keywords} />}
     <link rel="canonical" href={canonical.href} />
     <link rel="icon" type="image/png" sizes="680x680" href="/favicon-master-blue-v7.png?v=7" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7" />
@@ -31,6 +43,26 @@ const navigation = [
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
     <link rel="manifest" href="/site.webmanifest?v=7" />
     <meta name="theme-color" content="#ffffff" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical.href} />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Autional Docs" />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
+    <meta name="twitter:site" content="@autional" />
+    <meta name="twitter:creator" content="@autional" />
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'WebSite',
+      name: 'Autional Docs',
+      url: 'https://docs.autional.com',
+      description: 'Product documentation for the Autional identity platform.',
+      publisher: { '@type': 'Organization', name: 'Autional', url: 'https://www.autional.com' },
+    })} />
   </head>
   <body class="min-h-screen text-neutral-900">
     <div class="relative overflow-hidden">

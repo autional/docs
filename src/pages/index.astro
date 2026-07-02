@@ -5,8 +5,7 @@ const steps = [
   {
     title: 'Clone and boot the platform',
     body: 'Start the local stack so every service, gateway route, and operational dependency is available for exploration.',
-    command: `git clone https://github.com/autional/authms
-cd authms
+    command: `# See docs.autional.com/configuration for setup instructions
 docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d`,
   },
   {

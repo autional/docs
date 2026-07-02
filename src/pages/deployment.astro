@@ -5,8 +5,7 @@ import DocLayout from '../layouts/DocLayout.astro';
   <h1 class="text-3xl font-bold mb-6">Deployment</h1>
   <p class="mb-6 text-neutral-600 dark:text-neutral-300">Deploy Autional in production with Docker compose, Kubernetes, or self-hosted bare metal.</p>
   <h2 class="text-xl font-bold mt-8 mb-3">Docker Compose</h2>
-  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6">git clone https://github.com/autional/authms
-cd authms
+  <pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6"># See docs.autional.com/configuration for setup instructions
 # Production: use separate infra + services compose files
 docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d</pre>
   <h2 class="text-xl font-bold mt-8 mb-3">Configuration</h2>

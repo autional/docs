@@ -1,8 +1,11 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+import { SITE_ROOT_DOMAIN, GITHUB_ORG_URL } from '../lib/site-env';
+
 const reactCode = `import { AutionalProvider } from '@autional/react';
 
-const config = { appId: 'my-app', issuer: 'https://api.autional.cn' };
+const config = { appId: 'my-app', issuer: 'https://api.${SITE_ROOT_DOMAIN}' };
 
 function App() {
   return (
@@ -11,33 +14,31 @@ function App() {
     </AutionalProvider>
   );
 }`;
-const packages = [
-  { name: '@autional/react', desc: 'React SDK：认证 hooks 与组件' },
-  { name: '@autional/onboard', desc: '接入脚手架 CLI：创建并接入 React / Vue / Next.js 项目' },
-  { name: '@autional/ui', desc: 'React 组件库' },
-  { name: '@autional/tokens', desc: '设计令牌（CSS 变量）' },
-  { name: '@autional/tailwind-preset', desc: 'Tailwind 预设（品牌主题）' },
-  { name: '@autional/shared', desc: '共享工具：API client、认证、类型与 hooks' },
-  { name: '@autional/eslint-config', desc: 'ESLint 共享配置' },
-  { name: '@autional/tsconfig', desc: 'TypeScript 共享配置' },
-];
+const packages = t('sdk.packages.items', { returnObjects: true }) as { name: string; desc: string }[];
+const catalog = t('sdk.catalog', { returnObjects: true }) as {
+  before: string;
+  mid: string;
+  after: string;
+  orgLink: string;
+};
+const sdkCatalogUrl = `https://www.${SITE_ROOT_DOMAIN}/sdk`;
 ---
-<DocLayout title="SDK — Autional 文档" description="Autional 的 npm 包 —— @autional 作用域下的 React SDK、按服务划分的 API 客户端、接入脚手架与设计系统 / 工程配置包。">
-  <h1 class="text-3xl font-bold mb-6">SDK</h1>
-  <p class="mb-6 text-neutral-600 dark:text-neutral-300">Autional 在 npm 上提供 <code class="bg-neutral-100 px-1 rounded-xs">@autional</code> 作用域下的软件包：React SDK、按服务划分的 API 客户端、接入脚手架，以及设计系统与工程配置包。</p>
-  <h2 class="text-xl font-bold mt-8 mb-3">React</h2>
+<DocLayout title={t('sdk.meta.title')} description={t('sdk.meta.description')}>
+  <h1 class="text-3xl font-bold mb-6" data-i18n="sdk.title">{t('sdk.title')}</h1>
+  <p class="mb-6 text-neutral-600 dark:text-neutral-300"><span data-i18n="sdk.lead.before">{t('sdk.lead.before')}</span><code class="bg-neutral-100 px-1 rounded-xs">@autional</code><span data-i18n="sdk.lead.mid">{t('sdk.lead.mid')}</span></p>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="sdk.react.title">{t('sdk.react.title')}</h2>
   <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6">npm install @autional/react</pre>
-  <p class="mb-4 text-neutral-600">为应用注入认证上下文的 Provider 组件：</p>
+  <p class="mb-4 text-neutral-600" data-i18n="sdk.react.lead">{t('sdk.react.lead')}</p>
   <pre class="rounded-xl bg-code p-4 text-sm overflow-x-auto mb-6"><code>{reactCode}</code></pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">接入脚手架</h2>
-  <p class="mb-4 text-neutral-600">交互式创建并接入一个新项目：</p>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="sdk.onboarding.title">{t('sdk.onboarding.title')}</h2>
+  <p class="mb-4 text-neutral-600" data-i18n="sdk.onboarding.lead">{t('sdk.onboarding.lead')}</p>
   <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6">npx @autional/onboard</pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">全部包</h2>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="sdk.packages.title">{t('sdk.packages.title')}</h2>
   <table class="w-full text-sm mb-6 border-collapse">
-    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">包</th><th class="text-left font-medium py-2 px-2">说明</th></tr></thead>
+    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2" data-i18n="sdk.packages.name">{t('sdk.packages.name')}</th><th class="text-left font-medium py-2 px-2" data-i18n="sdk.packages.description">{t('sdk.packages.description')}</th></tr></thead>
     <tbody>
-      {packages.map(p => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{p.name}</td><td class="py-2 px-2">{p.desc}</td></tr>)}
+      {packages.map((pkg, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{pkg.name}</td><td class="py-2 px-2" data-i18n={`sdk.packages.items.${index}.desc`}>{pkg.desc}</td></tr>)}
     </tbody>
   </table>
-  <p class="mb-4 text-neutral-600">完整 SDK 目录见 <a href="https://www.autional.cn/sdk" class="text-primary-600 underline">www.autional.cn/sdk</a>，源码见 <a href="https://github.com/autional-cn" class="text-primary-600 underline">GitHub 上的 autional-cn 组织</a>。</p>
+  <p class="mb-4 text-neutral-600"><span data-i18n="sdk.catalog.before">{catalog.before}</span><a href={sdkCatalogUrl} class="text-primary-600 underline">{`www.${SITE_ROOT_DOMAIN}/sdk`}</a><span data-i18n="sdk.catalog.mid">{catalog.mid}</span><a href={GITHUB_ORG_URL} class="text-primary-600 underline" data-i18n="sdk.catalog.orgLink">{catalog.orgLink}</a><span data-i18n="sdk.catalog.after">{catalog.after}</span></p>
 </DocLayout>

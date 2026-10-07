@@ -1,28 +1,35 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+
+const config = t('deployment.config', { returnObjects: true }) as {
+  title: string;
+  lead: string;
+  variable: string;
+  description: string;
+  required: string;
+  rows: { name: string; desc: string }[];
+};
+const tls = t('deployment.tls', { returnObjects: true }) as { title: string; before: string; after: string };
 ---
-<DocLayout title="部署 — Autional 文档" description="在生产环境部署 Autional —— Docker Compose 编排、关键环境变量与监控栈。">
-  <h1 class="text-3xl font-bold mb-6">部署</h1>
-  <p class="mb-6 text-neutral-600 dark:text-neutral-300">使用 Docker Compose 编排在生产环境部署 Autional。</p>
-  <h2 class="text-xl font-bold mt-8 mb-3">Docker Compose</h2>
-  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6"># 生产环境：使用独立的 infra + services compose 文件
-docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d</pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">配置</h2>
-  <p class="mb-4 text-neutral-600">生产环境需要设置的关键环境变量：</p>
+<DocLayout title={t('deployment.meta.title')} description={t('deployment.meta.description')}>
+  <h1 class="text-3xl font-bold mb-6" data-i18n="deployment.title">{t('deployment.title')}</h1>
+  <p class="mb-6 text-neutral-600 dark:text-neutral-300" data-i18n="deployment.lead">{t('deployment.lead')}</p>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="deployment.compose.title">{t('deployment.compose.title')}</h2>
+  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6" data-i18n="deployment.compose.code">{t('deployment.compose.code')}</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="deployment.config.title">{config.title}</h2>
+  <p class="mb-4 text-neutral-600" data-i18n="deployment.config.lead">{config.lead}</p>
   <table class="w-full text-sm mb-6 border-collapse">
-    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">变量</th><th class="text-left font-medium py-2">说明</th><th class="text-left font-medium py-2">必填</th></tr></thead>
+    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2" data-i18n="deployment.config.variable">{config.variable}</th><th class="text-left font-medium py-2" data-i18n="deployment.config.description">{config.description}</th><th class="text-left font-medium py-2" data-i18n="deployment.config.required">{config.required}</th></tr></thead>
     <tbody>
-      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">JWT_SECRET</td><td class="py-2">令牌签名密钥（至少 32 个字符）</td><td class="py-2 text-success-text">是</td></tr>
-      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">PASSWORD_PEPPER</td><td class="py-2">用于密码哈希的 Pepper</td><td class="py-2 text-success-text">是</td></tr>
-      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">INTERNAL_API_KEY</td><td class="py-2">服务间认证</td><td class="py-2 text-success-text">是</td></tr>
-      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">POSTGRES_PASSWORD</td><td class="py-2">PostgreSQL 密码</td><td class="py-2 text-success-text">是</td></tr>
-      <tr class="border-b border-neutral-100"><td class="py-2 font-mono">REDIS_PASSWORD</td><td class="py-2">Redis 密码</td><td class="py-2 text-success-text">是</td></tr>
+      {config.rows.map((row, index) => (
+        <tr class="border-b border-neutral-100"><td class="py-2 font-mono">{row.name}</td><td class="py-2" data-i18n={`deployment.config.rows.${index}.desc`}>{row.desc}</td><td class="py-2 text-success-text" data-i18n="common.yes">{t('common.yes')}</td></tr>
+      ))}
     </tbody>
   </table>
-  <h2 class="text-xl font-bold mt-8 mb-3">SSL / TLS</h2>
-  <p class="mb-4 text-neutral-600">生产环境请使用 Let's Encrypt 或你自己的 CA。网关 nginx 负责 SSL 终止。参考用的自签名证书见 <code class="bg-neutral-100 px-1 rounded-xs">docker/nginx/certs/</code>。</p>
-  <h2 class="text-xl font-bold mt-8 mb-3">监控</h2>
-  <p class="mb-4 text-neutral-600">内置 Prometheus + Grafana 仪表盘，用于监控全部 27 个服务；告警路由由 Alertmanager 处理；链路追踪通过 Jaeger 采集 OpenTelemetry 数据。</p>
-  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6"># 监控栈随整套环境编排一并启动（docker-compose.dev-cloud.yml 含 Prometheus / Grafana / Alertmanager / Jaeger）
-# Grafana: http://localhost:20300</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="deployment.tls.title">{tls.title}</h2>
+  <p class="mb-4 text-neutral-600"><span data-i18n="deployment.tls.before">{tls.before}</span><code class="bg-neutral-100 px-1 rounded-xs">docker/nginx/certs/</code><span data-i18n="deployment.tls.after">{tls.after}</span></p>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="deployment.monitoring.title">{t('deployment.monitoring.title')}</h2>
+  <p class="mb-4 text-neutral-600" data-i18n="deployment.monitoring.lead">{t('deployment.monitoring.lead')}</p>
+  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6" data-i18n="deployment.monitoring.code">{t('deployment.monitoring.code')}</pre>
 </DocLayout>

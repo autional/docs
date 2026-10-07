@@ -1,35 +1,58 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+
+const tier1 = t('architecture.tier1', { returnObjects: true }) as {
+  title: string;
+  layer: string;
+  modules: string;
+  purpose: string;
+  rows: { layer: string; modules: string; purpose: string }[];
+};
+const tier2 = t('architecture.tier2', { returnObjects: true }) as {
+  title: string;
+  module: string;
+  integration: string;
+  port: string;
+  rows: { module: string; integration: string; port: string }[];
+};
+const tier3 = t('architecture.tier3', { returnObjects: true }) as {
+  title: string;
+  leadBefore: string;
+  leadMid: string;
+  leadAfter: string;
+  middlewareLabel: string;
+  middlewareBody: string;
+  sharedLabel: string;
+  sharedBody: string;
+};
 ---
-<DocLayout title="架构 — Autional 文档" description="Autional 架构总览 —— 采用 4 层设计的 27 个 Go 微服务，并配备横切的安全与可观测能力。">
-<h1 class="text-3xl font-bold mb-6">架构</h1>
-<p class="mb-6 text-neutral-600">Autional 由 27 个可独立部署的 Go 微服务组成，采用 4 层架构并配备一个横切层。</p>
+<DocLayout title={t('architecture.meta.title')} description={t('architecture.meta.description')}>
+<h1 class="text-3xl font-bold mb-6" data-i18n="architecture.title">{t('architecture.title')}</h1>
+<p class="mb-6 text-neutral-600" data-i18n="architecture.lead">{t('architecture.lead')}</p>
 
-<h2 class="text-xl font-bold mt-8 mb-3">第 1 层：基础层</h2>
-<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">层</th><th class="text-left font-medium py-2">模块</th><th class="text-left font-medium py-2">用途</th></tr></thead><tbody>
-<tr class="border-b border-neutral-100"><td class="py-2 font-mono text-primary-600">base/</td><td class="py-2">base/error, base/config, base/idgen</td><td class="py-2">零依赖基础库：错误处理、配置加载、ID 生成</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 font-mono text-primary-600">util/</td><td class="py-2">util/jwt, util/random, util/retry</td><td class="py-2">外部依赖极少的工具库</td></tr>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="architecture.tier1.title">{tier1.title}</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2" data-i18n="architecture.tier1.layer">{tier1.layer}</th><th class="text-left font-medium py-2" data-i18n="architecture.tier1.modules">{tier1.modules}</th><th class="text-left font-medium py-2" data-i18n="architecture.tier1.purpose">{tier1.purpose}</th></tr></thead><tbody>
+{tier1.rows.map((row, index) => <tr class="border-b border-neutral-100"><td class="py-2 font-mono text-primary-600">{row.layer}</td><td class="py-2">{row.modules}</td><td class="py-2" data-i18n={`architecture.tier1.rows.${index}.purpose`}>{row.purpose}</td></tr>)}
 </tbody></table>
 
-<h2 class="text-xl font-bold mt-8 mb-3">第 2 层：基础设施层</h2>
-<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">模块</th><th class="text-left font-medium py-2">集成</th><th class="text-left font-medium py-2">端口</th></tr></thead><tbody>
-<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/gorm</td><td class="py-2">PostgreSQL, MySQL</td><td class="py-2 font-mono">5432</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/redis</td><td class="py-2">Redis, Valkey</td><td class="py-2 font-mono">6379</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 font-mono">infra-client/messagequeue</td><td class="py-2">RabbitMQ, Kafka</td><td class="py-2 font-mono">5672</td></tr>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="architecture.tier2.title">{tier2.title}</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2" data-i18n="architecture.tier2.module">{tier2.module}</th><th class="text-left font-medium py-2" data-i18n="architecture.tier2.integration">{tier2.integration}</th><th class="text-left font-medium py-2" data-i18n="architecture.tier2.port">{tier2.port}</th></tr></thead><tbody>
+{tier2.rows.map((row) => <tr class="border-b border-neutral-100"><td class="py-2 font-mono">{row.module}</td><td class="py-2">{row.integration}</td><td class="py-2 font-mono">{row.port}</td></tr>)}
 </tbody></table>
 
-<h2 class="text-xl font-bold mt-8 mb-3">第 3 层：领域层</h2>
-<p class="mb-4 text-neutral-600">共享领域模型位于 <code class="bg-neutral-100 px-1 rounded-xs">micro-share/</code>，中间件位于 <code class="bg-neutral-100 px-1 rounded-xs">micro-middleware/</code>。</p>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="architecture.tier3.title">{tier3.title}</h2>
+<p class="mb-4 text-neutral-600"><span data-i18n="architecture.tier3.leadBefore">{tier3.leadBefore}</span><code class="bg-neutral-100 px-1 rounded-xs">micro-share/</code><span data-i18n="architecture.tier3.leadMid">{tier3.leadMid}</span><code class="bg-neutral-100 px-1 rounded-xs">micro-middleware/</code><span data-i18n="architecture.tier3.leadAfter">{tier3.leadAfter}</span></p>
 <ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
-<li><strong>middleware：</strong>认证（JWT/IP 白名单）、应用启动引导、gRPC 工厂、错误处理、审计、租户解析</li>
-<li><strong>shared：</strong>领域事件（550+ 种事件类型）、RBAC、ABAC、ReBAC、PIM、合规、钱包、计费、通知</li>
+<li><strong data-i18n="architecture.tier3.middlewareLabel">{tier3.middlewareLabel}</strong><span data-i18n="architecture.tier3.middlewareBody">{tier3.middlewareBody}</span></li>
+<li><strong data-i18n="architecture.tier3.sharedLabel">{tier3.sharedLabel}</strong><span data-i18n="architecture.tier3.sharedBody">{tier3.sharedBody}</span></li>
 </ul>
 
-<h2 class="text-xl font-bold mt-8 mb-3">第 4 层：业务服务（27 个）</h2>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="architecture.tier4.title">{t('architecture.tier4.title')}</h2>
 <div class="grid sm:grid-cols-2 gap-3 mb-6">
 {['Identity (11001)','Profile (11002)','Tenant (11003)','Session (11004)','MFA (11005)','OAuth (11006)','Config (11007)','Wallet (11011)','Point (11012)','Audit (11013)','Notification (11014)','Communication (11015)','Storage (11016)','Billing (11017)','Compliance (11018)','Status (11019)','Secret (11020)','SAML (11021)','Pay (11022)','Thirdparty (11023)','Verification (11024)','RBAC (11025)','Captcha3D (11028)','Stream (11029)','Gateway (11080)','Hash-standard (gRPC)','Hash-sm (gRPC)'].map(s => <div class="rounded-lg border border-neutral-200 dark:border-neutral-800 p-3 text-sm font-mono">{s}</div>)}
 </div>
 
-<h2 class="text-xl font-bold mt-8 mb-3">横切层</h2>
-<p class="mb-4 text-neutral-600"><code class="bg-neutral-100 px-1 rounded-xs">cross/registry/</code> —— 端口、错误码、事件名、表名、RBAC 权限。所有服务都依赖该层。</p>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="architecture.cross.title">{t('architecture.cross.title')}</h2>
+<p class="mb-4 text-neutral-600"><code class="bg-neutral-100 px-1 rounded-xs">cross/registry/</code><span data-i18n="architecture.cross.lead">{t('architecture.cross.lead')}</span></p>
 </DocLayout>

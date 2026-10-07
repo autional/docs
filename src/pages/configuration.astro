@@ -1,34 +1,42 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+
+// 结构列（变量名 / 是否必填 / 默认值）语言无关，随页留存；说明列经 i18n 键化（同索引对齐，长度在构建期断言）。
 const vars = [
-  { name: 'JWT_SECRET', desc: '令牌签名密钥（至少 32 个字符）', required: true, default: '—' },
-  { name: 'PASSWORD_PEPPER', desc: '用于 argon2id 密码哈希的 Pepper', required: true, default: '—' },
-  { name: 'INTERNAL_API_KEY', desc: '服务间认证密钥', required: true, default: '—' },
-  { name: 'POSTGRES_HOST', desc: 'PostgreSQL 主机名', required: true, default: 'localhost' },
-  { name: 'POSTGRES_PORT', desc: 'PostgreSQL 端口', required: false, default: '5432' },
-  { name: 'POSTGRES_USER', desc: 'PostgreSQL 用户名', required: true, default: 'authuser' },
-  { name: 'POSTGRES_PASSWORD', desc: 'PostgreSQL 密码', required: true, default: 'authpassword' },
-  { name: 'REDIS_HOST', desc: 'Redis 主机名', required: false, default: 'localhost' },
-  { name: 'REDIS_PORT', desc: 'Redis 端口', required: false, default: '6379' },
-  { name: 'REDIS_PASSWORD', desc: 'Redis 密码', required: false, default: '' },
-  { name: 'RABBITMQ_HOST', desc: 'RabbitMQ 主机名', required: false, default: 'localhost' },
-  { name: 'RABBITMQ_PORT', desc: 'RabbitMQ 端口', required: false, default: '5672' },
-  { name: 'RABBITMQ_USER', desc: 'RabbitMQ 用户名', required: false, default: 'admin' },
-  { name: 'RABBITMQ_PASSWORD', desc: 'RabbitMQ 密码', required: false, default: 'adminpassword' },
-  { name: 'APP_ENV', desc: '运行环境：development | production', required: false, default: 'development' },
-  { name: 'AUDIT_MONGODB_HOST', desc: 'MongoDB 主机名（审计服务）', required: false, default: 'localhost' },
-  { name: 'AUDIT_MONGODB_PORT', desc: 'MongoDB 端口（审计服务）', required: false, default: '27017' },
-  { name: 'MINIO_ENDPOINT', desc: 'MinIO/S3 端点（存储服务）', required: false, default: '—' },
+  { name: 'JWT_SECRET', required: true, default: '—' },
+  { name: 'PASSWORD_PEPPER', required: true, default: '—' },
+  { name: 'INTERNAL_API_KEY', required: true, default: '—' },
+  { name: 'POSTGRES_HOST', required: true, default: 'localhost' },
+  { name: 'POSTGRES_PORT', required: false, default: '5432' },
+  { name: 'POSTGRES_USER', required: true, default: 'authuser' },
+  { name: 'POSTGRES_PASSWORD', required: true, default: 'authpassword' },
+  { name: 'REDIS_HOST', required: false, default: 'localhost' },
+  { name: 'REDIS_PORT', required: false, default: '6379' },
+  { name: 'REDIS_PASSWORD', required: false, default: '' },
+  { name: 'RABBITMQ_HOST', required: false, default: 'localhost' },
+  { name: 'RABBITMQ_PORT', required: false, default: '5672' },
+  { name: 'RABBITMQ_USER', required: false, default: 'admin' },
+  { name: 'RABBITMQ_PASSWORD', required: false, default: 'adminpassword' },
+  { name: 'APP_ENV', required: false, default: 'development' },
+  { name: 'AUDIT_MONGODB_HOST', required: false, default: 'localhost' },
+  { name: 'AUDIT_MONGODB_PORT', required: false, default: '27017' },
+  { name: 'MINIO_ENDPOINT', required: false, default: '—' },
 ];
+const descs = t('configuration.vars', { returnObjects: true }) as string[];
+if (descs.length !== vars.length) {
+  throw new Error(`[i18n] configuration.vars 长度与页面结构不符：${descs.length} ≠ ${vars.length}`);
+}
+const files = t('configuration.files', { returnObjects: true }) as { title: string; lead: { before: string; mid: string; after: string } };
 ---
-<DocLayout title="配置 — Autional 文档" description="Autional 全部 27 个微服务的常用环境变量参考 —— 数据库、Redis、RabbitMQ、JWT 及服务专有配置。">
-<h1 class="text-3xl font-bold mb-6">配置参考</h1>
-<p class="mb-6 text-neutral-600">Autional 全部 27 个微服务使用的常用环境变量（完整变量以各服务的 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/*.yaml</code> 为准）。可在 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">.env</code> 中覆盖。</p>
-<table class="w-full text-sm border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">变量</th><th class="text-left font-medium py-2 px-2">说明</th><th class="text-left font-medium py-2 px-2">必填</th><th class="text-left font-medium py-2 px-2">默认值</th></tr></thead><tbody>
-{vars.map(v => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2">{v.desc}</td><td class="py-2 px-2">{v.required ? <span class="text-success-text">是</span> : <span class="text-[var(--color-text-muted)]">否</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
+<DocLayout title={t('configuration.meta.title')} description={t('configuration.meta.description')}>
+<h1 class="text-3xl font-bold mb-6" data-i18n="configuration.title">{t('configuration.title')}</h1>
+<p class="mb-6 text-neutral-600"><span data-i18n="configuration.lead.before">{t('configuration.lead.before')}</span><code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/*.yaml</code><span data-i18n="configuration.lead.mid">{t('configuration.lead.mid')}</span><code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">.env</code><span data-i18n="configuration.lead.after">{t('configuration.lead.after')}</span></p>
+<table class="w-full text-sm border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2" data-i18n="configuration.table.variable">{t('configuration.table.variable')}</th><th class="text-left font-medium py-2 px-2" data-i18n="configuration.table.description">{t('configuration.table.description')}</th><th class="text-left font-medium py-2 px-2" data-i18n="configuration.table.required">{t('configuration.table.required')}</th><th class="text-left font-medium py-2 px-2" data-i18n="configuration.table.default">{t('configuration.table.default')}</th></tr></thead><tbody>
+{vars.map((v, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2" data-i18n={`configuration.vars.${index}`}>{descs[index]}</td><td class="py-2 px-2">{v.required ? <span class="text-success-text" data-i18n="common.yes">{t('common.yes')}</span> : <span class="text-[var(--color-text-muted)]" data-i18n="common.no">{t('common.no')}</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
 </tbody></table>
-<h2 class="text-xl font-bold mt-8 mb-3">配置文件</h2>
-<p class="mb-4 text-neutral-600">每个服务从 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.yaml</code> 读取 YAML 配置，数据库相关配置位于 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.gorm.yaml</code>。查看全部配置文件：</p>
+<h2 class="text-xl font-bold mt-8 mb-3" data-i18n="configuration.files.title">{files.title}</h2>
+<p class="mb-4 text-neutral-600"><span data-i18n="configuration.files.lead.before">{files.lead.before}</span><code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.yaml</code><span data-i18n="configuration.files.lead.mid">{files.lead.mid}</span><code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.gorm.yaml</code><span data-i18n="configuration.files.lead.after">{files.lead.after}</span></p>
 <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6"># configs/service/ directory contains:
 configs/service/identity-service.yaml
 configs/service/identity-service.gorm.yaml

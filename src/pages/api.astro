@@ -1,14 +1,19 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+import { brotherUrl } from '../lib/site-env';
+
+const referenceUrl = `${brotherUrl('reference')}/`;
+const specBase = `${brotherUrl('reference')}/specs`;
 ---
-<DocLayout title="API 参考 — Autional 文档" description="Autional API 参考 —— 27 个微服务的 OpenAPI 3.0 规范、1,400+ REST 端点，以及经网关访问的交互式 Swagger 文档。">
-  <h1 class="text-3xl font-bold mb-6">API 参考</h1>
-  <p class="mb-6 text-neutral-600 dark:text-neutral-300">全部 27 个微服务都提供 OpenAPI 3.0 规范。你可以通过网关浏览交互式文档，也可以直接获取原始规范文件。</p>
-  <h2 class="text-xl font-bold mt-8 mb-3">交互式 API 文档</h2>
-  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6">https://reference.autional.cn/</pre>
-  <h2 class="text-xl font-bold mt-8 mb-3">关键端点</h2>
+<DocLayout title={t('api.meta.title')} description={t('api.meta.description')}>
+  <h1 class="text-3xl font-bold mb-6" data-i18n="api.title">{t('api.title')}</h1>
+  <p class="mb-6 text-neutral-600 dark:text-neutral-300" data-i18n="api.lead">{t('api.lead')}</p>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="api.interactiveTitle">{t('api.interactiveTitle')}</h2>
+  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6">{referenceUrl}</pre>
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="api.endpoints.title">{t('api.endpoints.title')}</h2>
   <table class="w-full text-sm mt-4 border-collapse">
-    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2">服务</th><th class="text-left font-medium py-2">端口</th><th class="text-left font-medium py-2">基础路径</th></tr></thead>
+    <thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2" data-i18n="api.endpoints.service">{t('api.endpoints.service')}</th><th class="text-left font-medium py-2" data-i18n="api.endpoints.port">{t('api.endpoints.port')}</th><th class="text-left font-medium py-2" data-i18n="api.endpoints.basePath">{t('api.endpoints.basePath')}</th></tr></thead>
     <tbody>
       <tr class="border-b border-neutral-100"><td class="py-2">Gateway</td><td class="py-2 font-mono">11080</td><td class="py-2 font-mono">/bff/&#123;service&#125;/api/v1/</td></tr>
       <tr class="border-b border-neutral-100"><td class="py-2">Identity</td><td class="py-2 font-mono">11001</td><td class="py-2 font-mono">/api/v1/auth/</td></tr>
@@ -20,10 +25,10 @@ import DocLayout from '../layouts/DocLayout.astro';
       <tr><td class="py-2">RBAC</td><td class="py-2 font-mono">11025</td><td class="py-2 font-mono">/api/v1/admin/roles</td></tr>
     </tbody>
   </table>
-  <h2 class="text-xl font-bold mt-8 mb-3">规范文件</h2>
-  <p class="mb-4 text-neutral-600">每个服务的原始 OpenAPI 规范文件按服务名提供，可直接下载或用于代码生成：</p>
-  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto">https://reference.autional.cn/specs/&#123;service&#125;.json
+  <h2 class="text-xl font-bold mt-8 mb-3" data-i18n="api.spec.title">{t('api.spec.title')}</h2>
+  <p class="mb-4 text-neutral-600" data-i18n="api.spec.lead">{t('api.spec.lead')}</p>
+  <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto">{`${specBase}/{service}.json`}
 
-# 例如 identity 服务的规范文件：
-https://reference.autional.cn/specs/identity-service.json</pre>
+<span data-i18n="api.spec.exampleComment">{t('api.spec.exampleComment')}</span>
+{`${specBase}/identity-service.json`}</pre>
 </DocLayout>

@@ -1,33 +1,39 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+
+const warning2 = t('compliance.warning2', { returnObjects: true }) as {
+  before: string;
+  strong1: string;
+  mid: string;
+  strong2: string;
+  after: string;
+};
+const tooling = t('compliance.tooling', { returnObjects: true }) as {
+  title: string;
+  framework: string;
+  support: string;
+  rows: { standard: string; support: string }[];
+};
 ---
-<DocLayout title="合规 — Autional 文档" description="Autional 的合规工具 —— 支持 ISO 27001、SOC 2、GDPR、HIPAA、PCI DSS、PSD2、PIPL、等保 2.0 等 10 种合规标准，并提供面向审计的架构。">
-<h1 class="text-3xl font-bold mb-6">合规工具</h1>
+<DocLayout title={t('compliance.meta.title')} description={t('compliance.meta.description')}>
+<h1 class="text-3xl font-bold mb-6" data-i18n="compliance.title">{t('compliance.title')}</h1>
 <div class="rounded-xl bg-danger-soft dark:bg-danger-soft/10 border-2 border-danger-soft dark:border-danger-soft p-6 mb-8">
-<p class="text-base font-bold text-danger-text dark:text-danger-text mb-2">⚠️ Autional 未获得任何合规框架的认证。</p>
-<p class="text-sm text-danger-text dark:text-danger-text">本页介绍的工具用于帮助你<strong>管理组织内部的合规流程</strong>，它们<strong>不是认证</strong>，也不代表 Autional 持有相关认证。取得认证需要组织自身的制度、控制措施与第三方审计，请勿仅依赖这些工具实现合规。</p></div>
+<p class="text-base font-bold text-danger-text dark:text-danger-text mb-2" data-i18n="compliance.warning1">{t('compliance.warning1')}</p>
+<p class="text-sm text-danger-text dark:text-danger-text"><span data-i18n="compliance.warning2.before">{warning2.before}</span><strong data-i18n="compliance.warning2.strong1">{warning2.strong1}</strong><span data-i18n="compliance.warning2.mid">{warning2.mid}</span><strong data-i18n="compliance.warning2.strong2">{warning2.strong2}</strong><span data-i18n="compliance.warning2.after">{warning2.after}</span></p></div>
 
-<p class="mb-6 text-neutral-600">Autional 内置 10 种合规标准的控制项库与流程工具。这些工具旨在帮助你的组织管理合规流程 —— 它们本身并不是认证。</p>
+<p class="mb-6 text-neutral-600" data-i18n="compliance.lead">{t('compliance.lead')}</p>
 
-<h2 class="text-xl font-bold mb-3 mt-8">内置合规工具</h2>
-<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">标准</th><th class="text-left font-medium py-2 px-2">内置支持</th></tr></thead><tbody>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">GDPR</td><td class="py-2 px-2">DSAR 请求管理、16 服务协同的数据擦除编排、同意记录审计追踪（含 13 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">ISO/IEC 27001:2022</td><td class="py-2 px-2">Annex A 访问控制族（A.5.15–A.8.16）控制项台账（含 10 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">SOC 2 Type II</td><td class="py-2 px-2">CC6 逻辑和物理访问控制通用标准控制项（含 10 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">PCI DSS v4.0.1</td><td class="py-2 px-2">IAM 相关控制项与证据管理（含 14 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">HIPAA Security Rule</td><td class="py-2 px-2">IAM 相关控制项（含 9 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">PSD2 SCA</td><td class="py-2 px-2">强客户认证（SCA）技术要求控制项（含 8 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">PIPL（个人信息保护法）</td><td class="py-2 px-2">告知-同意等 IAM 相关条款控制项（含 10 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">等保 2.0 三级</td><td class="py-2 px-2">身份鉴别 / 访问控制 / 安全审计控制项（含 20 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">NIST SP 800-63B v4</td><td class="py-2 px-2">认证器与验证器要求（AAL1–AAL3）控制项（含 17 项控制项）</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2">未成年人保护综合标准</td><td class="py-2 px-2">COPPA / PIPL 未成年保护 / GDPR Art.8 / UK Code 汇总控制项（含 12 项控制项）</td></tr>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="compliance.tooling.title">{tooling.title}</h2>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2" data-i18n="compliance.tooling.framework">{tooling.framework}</th><th class="text-left font-medium py-2 px-2" data-i18n="compliance.tooling.support">{tooling.support}</th></tr></thead><tbody>
+{tooling.rows.map((row, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2" data-i18n={`compliance.tooling.rows.${index}.standard`}>{row.standard}</td><td class="py-2 px-2" data-i18n={`compliance.tooling.rows.${index}.support`}>{row.support}</td></tr>)}
 </tbody></table>
 
-<h2 class="text-xl font-bold mb-3 mt-8">关键技术特性</h2>
-<h3 class="text-lg font-bold mb-2 mt-6">哈希链审计日志</h3>
-<p class="mb-4 text-neutral-600">每个认证事件都会记录到 Merkle 哈希链中，链的完整性可通过密码学方式验证，为审计方提供防篡改证据。</p>
-<h3 class="text-lg font-bold mb-2 mt-6">数据留存</h3>
-<p class="mb-4 text-neutral-600">可按数据类型配置留存策略，支持定时归档与清理任务；审计日志可永久留存。</p>
-<h3 class="text-lg font-bold mb-2 mt-6">数据分级</h3>
-<p class="mb-4 text-neutral-600">提供数据分类分级管理：按数据类别标注敏感级别，级别值域可按组织口径自定义。</p>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="compliance.features.title">{t('compliance.features.title')}</h2>
+<h3 class="text-lg font-bold mb-2 mt-6" data-i18n="compliance.hash.title">{t('compliance.hash.title')}</h3>
+<p class="mb-4 text-neutral-600" data-i18n="compliance.hash.body">{t('compliance.hash.body')}</p>
+<h3 class="text-lg font-bold mb-2 mt-6" data-i18n="compliance.retention.title">{t('compliance.retention.title')}</h3>
+<p class="mb-4 text-neutral-600" data-i18n="compliance.retention.body">{t('compliance.retention.body')}</p>
+<h3 class="text-lg font-bold mb-2 mt-6" data-i18n="compliance.classification.title">{t('compliance.classification.title')}</h3>
+<p class="mb-4 text-neutral-600" data-i18n="compliance.classification.body">{t('compliance.classification.body')}</p>
 </DocLayout>

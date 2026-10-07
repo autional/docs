@@ -1,37 +1,44 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
+
+const modes = t('authConcepts.modes', { returnObjects: true }) as {
+  title: string;
+  lead: string;
+  mode: string;
+  security: string;
+  useCase: string;
+  rows: { mode: string; security: string; useCase: string }[];
+};
+const hashing = t('authConcepts.hashing', { returnObjects: true }) as {
+  title: string;
+  before: string;
+  mid: string;
+  after: string;
+};
+const oauthItems = t('authConcepts.oauth.items', { returnObjects: true }) as string[];
 ---
-<DocLayout title="认证概念 — Autional 文档" description="Autional 的认证工作原理 —— 密码哈希、令牌管理、OIDC 流程、会话生命周期与多因素认证。">
-<h1 class="text-3xl font-bold mb-6">认证概念</h1>
-<p class="mb-6 text-neutral-600">Autional 的认证工作原理 —— 从密码哈希到 OIDC 流程。</p>
-<h2 class="text-xl font-bold mb-3 mt-8">密码传输模式</h2>
-<p class="mb-4 text-neutral-600">Autional 支持 4 种密码传输模式，可按租户配置：</p>
-<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">模式</th><th class="text-left font-medium py-2 px-2">安全性</th><th class="text-left font-medium py-2 px-2">适用场景</th></tr></thead><tbody>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">plain</td><td class="py-2 px-2">低</td><td class="py-2 px-2">本地开发、可信网络</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">hash</td><td class="py-2 px-2">中</td><td class="py-2 px-2">标准 SaaS，需启用 HTTPS</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">symmetric</td><td class="py-2 px-2">高</td><td class="py-2 px-2">ECDH 密钥交换 + AES-256-GCM</td></tr>
-<tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">asymmetric</td><td class="py-2 px-2">最高</td><td class="py-2 px-2">RSA-OAEP，适用于受监管行业</td></tr>
+<DocLayout title={t('authConcepts.meta.title')} description={t('authConcepts.meta.description')}>
+<h1 class="text-3xl font-bold mb-6" data-i18n="authConcepts.title">{t('authConcepts.title')}</h1>
+<p class="mb-6 text-neutral-600" data-i18n="authConcepts.lead">{t('authConcepts.lead')}</p>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.modes.title">{modes.title}</h2>
+<p class="mb-4 text-neutral-600" data-i18n="authConcepts.modes.lead">{modes.lead}</p>
+<table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2" data-i18n="authConcepts.modes.mode">{modes.mode}</th><th class="text-left font-medium py-2 px-2" data-i18n="authConcepts.modes.security">{modes.security}</th><th class="text-left font-medium py-2 px-2" data-i18n="authConcepts.modes.useCase">{modes.useCase}</th></tr></thead><tbody>
+{modes.rows.map((row, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono">{row.mode}</td><td class="py-2 px-2" data-i18n={`authConcepts.modes.rows.${index}.security`}>{row.security}</td><td class="py-2 px-2" data-i18n={`authConcepts.modes.rows.${index}.useCase`}>{row.useCase}</td></tr>)}
 </tbody></table>
-<h2 class="text-xl font-bold mb-3 mt-8">密码哈希（服务端）</h2>
-<p class="mb-4 text-neutral-600">传输完成后，密码使用 <strong>argon2id</strong>（KDF）+ <strong>PASSWORD_PEPPER</strong> 进行哈希。系统同时保留 bcrypt 兜底方案以兼容存量数据，并支持按租户选择算法。</p>
-<h2 class="text-xl font-bold mb-3 mt-8">会话与令牌流程</h2>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.hashing.title">{hashing.title}</h2>
+<p class="mb-4 text-neutral-600"><span data-i18n="authConcepts.hashing.before">{hashing.before}</span><strong>argon2id</strong><span data-i18n="authConcepts.hashing.mid">{hashing.mid}</span><strong>PASSWORD_PEPPER</strong><span data-i18n="authConcepts.hashing.after">{hashing.after}</span></p>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.session.title">{t('authConcepts.session.title')}</h2>
 <pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6">User Login → POST /auth/login
   ├─ Returns: access_token (JWT, 5min) + refresh_token (24h)
   ├─ Access token: sent as Authorization Bearer header
   ├─ Refresh: POST /auth/refresh → new token pair
   └─ Logout: POST /auth/logout → revoke tokens, blacklist</pre>
-<h2 class="text-xl font-bold mb-3 mt-8">OAuth 2.1 / OIDC</h2>
-<p class="mb-4 text-neutral-600">Autional 实现了完整的 OAuth 2.1 + OpenID Connect 提供方技术栈：</p>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.oauth.title">{t('authConcepts.oauth.title')}</h2>
+<p class="mb-4 text-neutral-600" data-i18n="authConcepts.oauth.lead">{t('authConcepts.oauth.lead')}</p>
 <ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
-<li>授权码 + PKCE（RFC 7636）</li>
-<li>客户端凭证（M2M）</li>
-<li>设备授权（RFC 8628）</li>
-<li>令牌交换（RFC 8693）—— NHI 与 AI 智能体认证</li>
-<li>DPoP（持有证明）</li>
-<li>JARM（受 JWT 保护的授权响应）</li>
-<li>动态客户端注册（RFC 7591）</li>
-<li>富授权请求（RFC 9396）</li>
+{oauthItems.map((item, index) => <li data-i18n={`authConcepts.oauth.items.${index}`}>{item}</li>)}
 </ul>
-<h2 class="text-xl font-bold mb-3 mt-8">SAML 2.0</h2>
-<p class="mb-4 text-neutral-600">通过 SAML 2.0 IdP 实现企业单点登录（SSO），支持元数据交换、SLO 与属性映射，可在管理控制台中配置。</p>
+<h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.saml.title">{t('authConcepts.saml.title')}</h2>
+<p class="mb-4 text-neutral-600" data-i18n="authConcepts.saml.body">{t('authConcepts.saml.body')}</p>
 </DocLayout>

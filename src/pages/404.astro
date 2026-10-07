@@ -1,24 +1,21 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
-const links = [
-  ['快速开始', '/', '3 步在本地运行完整的 Autional 平台。'],
-  ['架构', '/architecture', '了解 4 层架构、共享层与 27 个微服务。'],
-  ['API 参考', '/api', '查看网关文档、服务路径与 OpenAPI 入口。'],
-  ['SDK', '/sdk', 'React SDK、接入脚手架与 @autional 包。'],
-];
+import { t } from '../i18n';
+
+const links = t('notFound.links', { returnObjects: true }) as { label: string; href: string; description: string }[];
 ---
-<DocLayout title="页面未找到 — Autional 文档" description="你访问的页面不存在或已被移动。请从站内入口继续浏览其他文档。">
-  <span class="brand-kicker">404</span>
-  <h1 class="mt-5">页面未找到</h1>
-  <p>
-    你访问的页面不存在或已被移动。请检查链接是否正确，或从下方入口继续浏览；也可以使用左侧导航访问其他文档页。
+<DocLayout title={t('notFound.meta.title')} description={t('notFound.meta.description')}>
+  <span class="brand-kicker" data-i18n="notFound.kicker">{t('notFound.kicker')}</span>
+  <h1 class="mt-5" data-i18n="notFound.title">{t('notFound.title')}</h1>
+  <p data-i18n="notFound.lead">
+    {t('notFound.lead')}
   </p>
 
   <div class="mt-8 grid gap-4 md:grid-cols-2">
-    {links.map(([label, href, description]) => (
-      <a href={href} class="brand-card block px-6 py-5 no-underline">
-        <div class="text-lg font-semibold text-primary-900">{label}</div>
-        <p class="mt-2 text-sm leading-7 text-neutral-600">{description}</p>
+    {links.map((link, index) => (
+      <a href={link.href} class="brand-card block px-6 py-5 no-underline">
+        <div class="text-lg font-semibold text-primary-900" data-i18n={`notFound.links.${index}.label`}>{link.label}</div>
+        <p class="mt-2 text-sm leading-7 text-neutral-600" data-i18n={`notFound.links.${index}.description`}>{link.description}</p>
       </a>
     ))}
   </div>

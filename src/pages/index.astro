@@ -1,39 +1,15 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
+import { t } from '../i18n';
 
-const steps = [
-  {
-    title: '克隆并启动平台',
-    body: '启动本地整套环境，随后即可浏览每个服务、网关路由与运行依赖。',
-    command: `# 启动本地整套环境（中间件 + 全部 27 个服务），首次约需 2-3 分钟
-docker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d`,
-  },
-  {
-    title: '验证网关',
-    body: '先检查健康状态，网关响应正常后再进入交互式文档。',
-    command: `curl http://localhost:11080/health
-open http://localhost:11080/docs/`,
-  },
-  {
-    title: '登录管理控制台',
-    body: '使用示例账号登录（仅限本地演示，请勿用于生产），即可在界面中查看租户、认证流程、策略与配置。',
-    command: `http://localhost:11080
-admin@admin.com / admin123`,
-  },
-];
-
-const links = [
-  ['架构', '/architecture', '了解 4 层架构、共享层与 27 个微服务。'],
-  ['安全指南', '/security', '了解 MFA、审计、加密与生产环境加固方案。'],
-  ['API 参考', '/api', '查看网关文档、服务路径与 OpenAPI 入口。'],
-  ['部署', '/deployment', '从本地开发过渡到可重复的生产部署。'],
-];
+const steps = t('index.steps', { returnObjects: true }) as { title: string; body: string; command: string }[];
+const links = t('index.links', { returnObjects: true }) as { label: string; href: string; description: string }[];
 ---
-<DocLayout title="快速开始 — Autional 文档" description="3 步在本地运行完整的 Autional 身份平台：克隆代码、用 Docker Compose 启动、登录管理控制台。">
-  <span class="brand-kicker">文档门户</span>
-  <h1 class="mt-5">3 个清晰步骤，在本地运行完整的 Autional 平台。</h1>
-  <p>
-    本文档中心帮助新加入的工程师快速完成从本地启动到理解系统的全过程。先启动平台、验证网关，再按自己的任务选择对应文档：架构、API、安全或部署。
+<DocLayout title={t('index.meta.title')} description={t('index.meta.description')}>
+  <span class="brand-kicker" data-i18n="index.kicker">{t('index.kicker')}</span>
+  <h1 class="mt-5" data-i18n="index.title">{t('index.title')}</h1>
+  <p data-i18n="index.lead">
+    {t('index.lead')}
   </p>
 
   <div class="mt-8 grid gap-5 xl:grid-cols-3">
@@ -41,20 +17,20 @@ const links = [
       <section class="brand-card px-6 py-6">
         <div class="flex items-center gap-3">
           <span class="flex h-10 w-10 items-center justify-center rounded-full bg-primary-700 text-sm font-bold text-white">{index + 1}</span>
-          <h2 class="mt-0 text-xl font-semibold text-primary-900">{step.title}</h2>
+          <h2 class="mt-0 text-xl font-semibold text-primary-900" data-i18n={`index.steps.${index}.title`}>{step.title}</h2>
         </div>
-        <p class="mt-4">{step.body}</p>
-        <pre>{step.command}</pre>
+        <p class="mt-4" data-i18n={`index.steps.${index}.body`}>{step.body}</p>
+        <pre data-i18n={`index.steps.${index}.command`}>{step.command}</pre>
       </section>
     ))}
   </div>
 
-  <h2>下一步</h2>
+  <h2 data-i18n="index.nextTitle">{t('index.nextTitle')}</h2>
   <div class="mt-5 grid gap-4 md:grid-cols-2">
-    {links.map(([label, href, description]) => (
-      <a href={href} class="brand-card block px-6 py-5 no-underline">
-        <div class="text-lg font-semibold text-primary-900">{label}</div>
-        <p class="mt-2 text-sm leading-7 text-neutral-600">{description}</p>
+    {links.map((link, index) => (
+      <a href={link.href} class="brand-card block px-6 py-5 no-underline">
+        <div class="text-lg font-semibold text-primary-900" data-i18n={`index.links.${index}.label`}>{link.label}</div>
+        <p class="mt-2 text-sm leading-7 text-neutral-600" data-i18n={`index.links.${index}.description`}>{link.description}</p>
       </a>
     ))}
   </div>

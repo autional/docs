@@ -28,7 +28,9 @@ export const defaultLang = (region?: string): Lang =>
 
 const resources: Record<string, unknown> = { 'en-US': enUS, 'zh-CN': zhCN };
 
-const envDefaultLang = defaultLang();
+/** 本区渲染语言：DEFAULT_LANG 优先（构建期显式声明），缺省按区域推导。 */
+const envDefaultLang: Lang =
+  (import.meta.env.PUBLIC_DEFAULT_LANG as Lang | undefined) ?? defaultLang();
 const envFallbackLocale = langToLocale(
   ((import.meta.env.PUBLIC_FALLBACK_LANG as Lang | undefined) ?? envDefaultLang) as Lang,
 );
@@ -69,3 +71,38 @@ export function t(key: string, options?: Params & { returnObjects?: boolean }): 
 /** 客户端取词（DocLayout 内联脚本用）：按当前语言取字符串。 */
 export const translate = (lang: Lang, key: string, params?: Params): string =>
   interpolate(String(resolve(lang, key)), params);
+
+const isLang = (v: unknown): v is Lang => typeof v === 'string' && (langs as readonly string[]).includes(v);
+
+/** 当前生效语言（客户端读 <html lang>，构建期即本区渲染语言）。 */
+export const currentLang = (): Lang =>
+  typeof document !== 'undefined'
+    ? localeToLang(document.documentElement.lang || langToLocale(envDefaultLang))
+    : envDefaultLang;
+
+/** 当前语言之外的另一种语言（切换目标）。 */
+export const otherLang = (lang: Lang): Lang => (lang === 'zh' ? 'en' : 'zh');
+
+/** 客户端切换：localStorage 持久化 + <html lang> 同步 + LANG_EVENT 广播（DocLayout 脚本据此重写 DOM）。 */
+export const setLang = (lang: Lang): void => {
+  try {
+    localStorage.setItem(LANG_STORAGE_KEY, lang);
+  } catch {
+    /* 隐私模式等场景忽略 */
+  }
+  if (typeof document !== 'undefined') document.documentElement.lang = langToLocale(lang);
+  if (typeof window !== 'undefined') {
+    window.dispatchEvent(new CustomEvent(LANG_EVENT, { detail: { lang, locale: langToLocale(lang) } }));
+  }
+};
+
+/** 客户端采纳已存偏好（非本区默认语言才切换；构建期与无偏好路径为 no-op）。 */
+export const restoreLang = (): void => {
+  if (typeof window === 'undefined') return;
+  try {
+    const saved = localStorage.getItem(LANG_STORAGE_KEY);
+    if (isLang(saved) && saved !== envDefaultLang) setLang(saved);
+  } catch {
+    /* 忽略 */
+  }
+};

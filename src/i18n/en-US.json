@@ -24,7 +24,13 @@
     "brandSubtitle": "Documentation",
     "kicker": "Docs Portal",
     "asideIntro": "Product architecture, identity concepts, operational guidance, and API references for teams building on Autional.",
-    "jsonLdDescription": "Product documentation for the Autional identity platform."
+    "jsonLdDescription": "Product documentation for the Autional identity platform.",
+    "chrome": {
+      "sdk": "SDK",
+      "apiReference": "API Reference",
+      "apiWiki": "API Wiki",
+      "github": "GitHub"
+    }
   },
   "common": {
     "yes": "Yes",

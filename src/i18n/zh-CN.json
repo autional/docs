@@ -24,7 +24,13 @@
     "brandSubtitle": "文档",
     "kicker": "文档门户",
     "asideIntro": "面向基于 Autional 构建的团队，提供产品架构、身份概念、运维指南与 API 参考。",
-    "jsonLdDescription": "Autional 身份平台的产品文档。"
+    "jsonLdDescription": "Autional 身份平台的产品文档。",
+    "chrome": {
+      "sdk": "SDK",
+      "apiReference": "API 参考",
+      "apiWiki": "API Wiki",
+      "github": "GitHub"
+    }
   },
   "common": {
     "yes": "是",

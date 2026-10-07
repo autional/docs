@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { t } from '../i18n';
+import { LOCALE, SITE_URL, SITE_ROOT_DOMAIN, brotherUrl, cdnAsset, GITHUB_REPO_URL } from '../lib/site-env';
 
 export interface Props {
   title?: string;
@@ -7,39 +9,50 @@ export interface Props {
   keywords?: string;
 }
 const {
-  title = 'Autional 文档',
-  description = 'Autional 产品文档 —— 涵盖架构、认证、安全、多租户、合规、部署与 SDK 指南。',
+  title = t('layout.meta.title'),
+  description = t('layout.meta.description'),
   keywords,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const pathname = Astro.url.pathname;
 const ogImage = new URL('/og-default.png', Astro.site).href;
 const navigation = [
-  { href: '/', label: '快速开始' },
-  { href: '/architecture', label: '架构' },
-  { href: '/auth-concepts', label: '认证概念' },
-  { href: '/security', label: '安全指南' },
-  { href: '/multi-tenant', label: '多租户' },
-  { href: '/compliance', label: '合规' },
-  { href: '/api', label: 'API 参考' },
-  { href: '/configuration', label: '配置' },
-  { href: '/deployment', label: '部署' },
-  { href: '/sdk', label: 'SDK' },
+  { href: '/', labelKey: 'nav.quickStart' },
+  { href: '/architecture', labelKey: 'nav.architecture' },
+  { href: '/auth-concepts', labelKey: 'nav.authConcepts' },
+  { href: '/security', labelKey: 'nav.securityGuide' },
+  { href: '/multi-tenant', labelKey: 'nav.multiTenancy' },
+  { href: '/compliance', labelKey: 'nav.compliance' },
+  { href: '/api', labelKey: 'nav.apiReference' },
+  { href: '/configuration', labelKey: 'nav.configuration' },
+  { href: '/deployment', labelKey: 'nav.deployment' },
+  { href: '/sdk', labelKey: 'nav.sdk' },
 ];
+// 兄弟站链接随本区根域派生（cn → *.autional.cn；com → *.autional.com）。
+const chromeLinks = [
+  { href: brotherUrl('developer'), labelKey: 'layout.chrome.sdk' },
+  { href: brotherUrl('reference'), labelKey: 'layout.chrome.apiReference' },
+  { href: brotherUrl('wiki'), labelKey: 'layout.chrome.apiWiki' },
+  { href: GITHUB_REPO_URL, labelKey: 'layout.chrome.github' },
+];
+// 切换按钮展示目标语言（本区默认 zh → EN；en → 中文）；初始态与服务端一致，客户端脚本按当前语言重算。
+const targetLang = LOCALE === 'zh-CN' ? 'en' : 'zh';
+const targetLangLabel = t(targetLang === 'en' ? 'lang.switchToEn' : 'lang.switchToZh');
+const chromeLinkClass = 'text-xs font-medium text-primary-500 hover:text-primary-700 transition';
 ---
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang={LOCALE}>
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
-    <link rel="stylesheet" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/tokens.css" />
-    <link rel="stylesheet" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/profiles/docs.css" />
-    <link rel="icon" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon-16x16.png">
-    <link rel="icon" type="image/svg+xml" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon.svg">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/apple-touch-icon.png">
-    <link rel="manifest" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/site.webmanifest">
+    <link rel="stylesheet" href={cdnAsset('tokens.css')} />
+    <link rel="stylesheet" href={cdnAsset('profiles/docs.css')} />
+    <link rel="icon" href={cdnAsset('icons/favicon.ico')} sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href={cdnAsset('icons/favicon-32x32.png')}>
+    <link rel="icon" type="image/png" sizes="16x16" href={cdnAsset('icons/favicon-16x16.png')}>
+    <link rel="icon" type="image/svg+xml" href={cdnAsset('icons/favicon.svg')}>
+    <link rel="apple-touch-icon" sizes="180x180" href={cdnAsset('icons/apple-touch-icon.png')}>
+    <link rel="manifest" href={cdnAsset('icons/site.webmanifest')}>
 
     <title>{title}</title>
     <meta name="description" content={description} />
@@ -50,7 +63,7 @@ const navigation = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Autional 文档" />
+    <meta property="og:site_name" content={t('layout.meta.title')} />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -61,10 +74,10 @@ const navigation = [
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Autional 文档',
-      url: 'https://docs.autional.cn',
-      description: 'Autional 身份平台的产品文档。',
-      publisher: { '@type': 'Organization', name: 'Autional', url: 'https://www.autional.cn' },
+      name: t('layout.meta.title'),
+      url: SITE_URL,
+      description: t('layout.jsonLdDescription'),
+      publisher: { '@type': 'Organization', name: 'Autional', url: brotherUrl('www') },
     })} />
   </head>
   <body class="min-h-screen text-neutral-900">
@@ -73,28 +86,28 @@ const navigation = [
       <header class="sticky top-0 z-50 border-b border-white/60 bg-white/82 backdrop-blur-xl">
         <div class="mx-auto flex h-[var(--layout-header-height)] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <a href="/" class="flex items-center gap-4">
-            <img src="/logo-mark.svg" alt="Autional 徽标" class="h-10 w-10 object-contain" />
+            <img src="/logo-mark.svg" alt={t('layout.logoAlt')} data-i18n-alt="layout.logoAlt" class="h-10 w-10 object-contain" />
             <div>
               <div class="text-lg font-extrabold tracking-[var(--letter-spacing-display-lg)] text-primary-800">Autional</div>
-              <div class="text-xs font-medium uppercase tracking-[0.28em] text-[var(--color-text-muted)]">文档</div>
+              <div class="text-xs font-medium uppercase tracking-[0.28em] text-[var(--color-text-muted)]" data-i18n="layout.brandSubtitle">{t('layout.brandSubtitle')}</div>
             </div>
           </a>
           <div class="hidden items-center gap-5 lg:flex">
-            <span class="brand-kicker">文档门户</span>
-            <a href="https://developer.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">SDK</a>
-            <a href="https://reference.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API 参考</a>
-            <a href="https://wiki.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API Wiki</a>
-            <a href="https://github.com/autional-cn/docs" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">GitHub</a>
-            <a href="https://www.autional.cn" class="brand-button-secondary px-4 py-2 text-xs">autional.cn</a>
+            <span class="brand-kicker" data-i18n="layout.kicker">{t('layout.kicker')}</span>
+            {chromeLinks.map((link) => (
+              <a href={link.href} class={chromeLinkClass} data-i18n={link.labelKey}>{t(link.labelKey)}</a>
+            ))}
+            <a href={brotherUrl('www')} class="brand-button-secondary px-4 py-2 text-xs">{SITE_ROOT_DOMAIN}</a>
+            <button type="button" data-lang-switch data-lang-target={targetLang} title={targetLangLabel} aria-label={targetLangLabel} class="brand-button-secondary px-4 py-2 text-xs">{targetLang === 'en' ? 'EN' : '中文'}</button>
           </div>
         </div>
         <div class="border-t border-white/60 lg:hidden">
           <div class="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-4 py-2 sm:px-6">
-            <a href="https://developer.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">SDK</a>
-            <a href="https://reference.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">API 参考</a>
-            <a href="https://wiki.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">API Wiki</a>
-            <a href="https://github.com/autional-cn/docs" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">GitHub</a>
-            <a href="https://www.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">autional.cn</a>
+            {chromeLinks.map((link) => (
+              <a href={link.href} class={`${chromeLinkClass} whitespace-nowrap`} data-i18n={link.labelKey}>{t(link.labelKey)}</a>
+            ))}
+            <a href={brotherUrl('www')} class={`${chromeLinkClass} whitespace-nowrap`}>{SITE_ROOT_DOMAIN}</a>
+            <button type="button" data-lang-switch data-lang-target={targetLang} title={targetLangLabel} aria-label={targetLangLabel} class="brand-button-secondary whitespace-nowrap px-4 py-2 text-xs">{targetLang === 'en' ? 'EN' : '中文'}</button>
           </div>
         </div>
       </header>
@@ -102,12 +115,10 @@ const navigation = [
       <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
         <aside class="lg:sticky lg:top-[calc(var(--layout-header-height)+var(--space-8))] lg:self-start">
           <div class="brand-shell px-5 py-6">
-            <p class="text-sm leading-7 text-neutral-600">
-              面向基于 Autional 构建的团队，提供产品架构、身份概念、运维指南与 API 参考。
-            </p>
+            <p class="text-sm leading-7 text-neutral-600" data-i18n="layout.asideIntro">{t('layout.asideIntro')}</p>
             <nav class="mt-6 space-y-2">
               {navigation.map((item) => (
-                <a href={item.href} class="docs-nav-link" data-active={pathname === item.href ? 'true' : 'false'}>{item.label}</a>
+                <a href={item.href} class="docs-nav-link" data-active={pathname === item.href ? 'true' : 'false'} data-i18n={item.labelKey}>{t(item.labelKey)}</a>
               ))}
             </nav>
           </div>
@@ -120,5 +131,49 @@ const navigation = [
         </main>
       </div>
     </div>
+
+    <script>
+      // 语言交换（B2 单源机制）：切换按钮调 setLang() 后广播 LANG_EVENT，
+      // 本脚本把带 data-i18n / data-i18n-<attr> 的节点就地重写为当前语言（全页可切换），并同步按钮目标语言。
+      import { LANG_EVENT, currentLang, otherLang, restoreLang, setLang, translate } from '../i18n';
+
+      const ATTRS = ['alt', 'aria-label', 'title'];
+
+      const updateSwitch = () => {
+        const lang = currentLang();
+        const target = otherLang(lang);
+        document.querySelectorAll('[data-lang-switch]').forEach((el) => {
+          el.textContent = target === 'en' ? 'EN' : '中文';
+          const label = translate(lang, target === 'en' ? 'lang.switchToEn' : 'lang.switchToZh');
+          el.setAttribute('title', label);
+          el.setAttribute('aria-label', label);
+          el.setAttribute('data-lang-target', target);
+        });
+      };
+
+      const applyChrome = () => {
+        const lang = currentLang();
+        document.querySelectorAll('[data-i18n]').forEach((el) => {
+          const key = el.getAttribute('data-i18n');
+          if (key) el.textContent = translate(lang, key);
+        });
+        for (const attr of ATTRS) {
+          document.querySelectorAll(`[data-i18n-${attr}]`).forEach((el) => {
+            const key = el.getAttribute(`data-i18n-${attr}`);
+            if (key) el.setAttribute(attr, translate(lang, key));
+          });
+        }
+        updateSwitch();
+      };
+
+      document.querySelectorAll('[data-lang-switch]').forEach((el) => {
+        el.addEventListener('click', () => setLang(otherLang(currentLang())));
+      });
+
+      window.addEventListener(LANG_EVENT, applyChrome);
+      // 采纳已存偏好（若有）后统一重写一次；restoreLang 内部走 setLang → 事件，此处兜底无偏好路径。
+      restoreLang();
+      applyChrome();
+    </script>
   </body>
 </html>

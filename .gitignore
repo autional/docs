@@ -4,3 +4,6 @@ dist/
 .astro/
 .env
 pnpm-workspace.yaml
+
+# Build-time generated (scripts/gen-static.mjs via prebuild/predev; do not commit)
+public/robots.txt

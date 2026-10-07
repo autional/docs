@@ -1,32 +1,35 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
 const vars = [
-  { name: 'JWT_SECRET', desc: 'Token signing key (min 32 chars)', required: true, default: '—' },
-  { name: 'PASSWORD_PEPPER', desc: 'Pepper for argon2id password hashing', required: true, default: '—' },
-  { name: 'INTERNAL_API_KEY', desc: 'Service-to-service authentication', required: true, default: '—' },
-  { name: 'POSTGRES_HOST', desc: 'PostgreSQL hostname', required: true, default: 'localhost' },
-  { name: 'POSTGRES_PORT', desc: 'PostgreSQL port', required: false, default: '5432' },
-  { name: 'POSTGRES_USER', desc: 'PostgreSQL user', required: true, default: 'authuser' },
-  { name: 'POSTGRES_PASSWORD', desc: 'PostgreSQL password', required: true, default: 'authpassword' },
-  { name: 'REDIS_HOST', desc: 'Redis hostname', required: false, default: 'localhost' },
-  { name: 'REDIS_PORT', desc: 'Redis port', required: false, default: '6379' },
-  { name: 'REDIS_PASSWORD', desc: 'Redis password', required: false, default: '' },
-  { name: 'RABBITMQ_HOST', desc: 'RabbitMQ hostname', required: false, default: 'localhost' },
-  { name: 'RABBITMQ_PORT', desc: 'RabbitMQ port', required: false, default: '5672' },
-  { name: 'APP_ENV', desc: 'Environment: development | production', required: false, default: 'development' },
-  { name: 'MONGO_URI', desc: 'MongoDB URI (audit service)', required: false, default: '—' },
-  { name: 'MINIO_ENDPOINT', desc: 'MinIO/S3 endpoint (storage)', required: false, default: '—' },
+  { name: 'JWT_SECRET', desc: '令牌签名密钥（至少 32 个字符）', required: true, default: '—' },
+  { name: 'PASSWORD_PEPPER', desc: '用于 argon2id 密码哈希的 Pepper', required: true, default: '—' },
+  { name: 'INTERNAL_API_KEY', desc: '服务间认证密钥', required: true, default: '—' },
+  { name: 'POSTGRES_HOST', desc: 'PostgreSQL 主机名', required: true, default: 'localhost' },
+  { name: 'POSTGRES_PORT', desc: 'PostgreSQL 端口', required: false, default: '5432' },
+  { name: 'POSTGRES_USER', desc: 'PostgreSQL 用户名', required: true, default: 'authuser' },
+  { name: 'POSTGRES_PASSWORD', desc: 'PostgreSQL 密码', required: true, default: 'authpassword' },
+  { name: 'REDIS_HOST', desc: 'Redis 主机名', required: false, default: 'localhost' },
+  { name: 'REDIS_PORT', desc: 'Redis 端口', required: false, default: '6379' },
+  { name: 'REDIS_PASSWORD', desc: 'Redis 密码', required: false, default: '' },
+  { name: 'RABBITMQ_HOST', desc: 'RabbitMQ 主机名', required: false, default: 'localhost' },
+  { name: 'RABBITMQ_PORT', desc: 'RabbitMQ 端口', required: false, default: '5672' },
+  { name: 'RABBITMQ_USER', desc: 'RabbitMQ 用户名', required: false, default: 'admin' },
+  { name: 'RABBITMQ_PASSWORD', desc: 'RabbitMQ 密码', required: false, default: 'adminpassword' },
+  { name: 'APP_ENV', desc: '运行环境：development | production', required: false, default: 'development' },
+  { name: 'AUDIT_MONGODB_HOST', desc: 'MongoDB 主机名（审计服务）', required: false, default: 'localhost' },
+  { name: 'AUDIT_MONGODB_PORT', desc: 'MongoDB 端口（审计服务）', required: false, default: '27017' },
+  { name: 'MINIO_ENDPOINT', desc: 'MinIO/S3 端点（存储服务）', required: false, default: '—' },
 ];
 ---
-<DocLayout title="Configuration — Autional Docs" description="Complete environment variable reference for all 24 Autional microservices — database, Redis, RabbitMQ, JWT, SMTP, and service-specific config.">
-<h1 class="text-3xl font-bold mb-6">Configuration Reference</h1>
-<p class="mb-6 text-neutral-600">All environment variables used by the 24 Autional microservices. Set these in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">.env</code> or <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/*.yaml</code>.</p>
-<table class="w-full text-sm border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">Variable</th><th class="text-left font-medium py-2 px-2">Description</th><th class="text-left font-medium py-2 px-2">Required</th><th class="text-left font-medium py-2 px-2">Default</th></tr></thead><tbody>
-{vars.map(v => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2">{v.desc}</td><td class="py-2 px-2">{v.required ? <span class="text-green-600">Yes</span> : <span class="text-neutral-400">No</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
+<DocLayout title="配置 — Autional 文档" description="Autional 全部 27 个微服务的常用环境变量参考 —— 数据库、Redis、RabbitMQ、JWT 及服务专有配置。">
+<h1 class="text-3xl font-bold mb-6">配置参考</h1>
+<p class="mb-6 text-neutral-600">Autional 全部 27 个微服务使用的常用环境变量（完整变量以各服务的 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/*.yaml</code> 为准）。可在 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">.env</code> 中覆盖。</p>
+<table class="w-full text-sm border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2">变量</th><th class="text-left font-medium py-2 px-2">说明</th><th class="text-left font-medium py-2 px-2">必填</th><th class="text-left font-medium py-2 px-2">默认值</th></tr></thead><tbody>
+{vars.map(v => <tr class="border-b border-neutral-100"><td class="py-2 px-2 font-mono text-xs">{v.name}</td><td class="py-2 px-2">{v.desc}</td><td class="py-2 px-2">{v.required ? <span class="text-success-text">是</span> : <span class="text-[var(--color-text-muted)]">否</span>}</td><td class="py-2 px-2 font-mono text-xs text-neutral-500">{v.default}</td></tr>)}
 </tbody></table>
-<h2 class="text-xl font-bold mt-8 mb-3">Configuration Files</h2>
-<p class="mb-4 text-neutral-600">Each service reads YAML config from <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/&#123;name&#125;.yaml</code>. Database settings are in <code class="bg-neutral-100 dark:bg-slate-800 px-1 rounded">configs/service/&#123;name&#125;.gorm.yaml</code>. View all config files:</p>
-<pre class="rounded-xl bg-slate-900 text-green-400 p-4 text-sm overflow-x-auto mb-6"># configs/service/ directory contains:
+<h2 class="text-xl font-bold mt-8 mb-3">配置文件</h2>
+<p class="mb-4 text-neutral-600">每个服务从 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.yaml</code> 读取 YAML 配置，数据库相关配置位于 <code class="bg-neutral-100 dark:bg-surface px-1 rounded-xs">configs/service/&#123;name&#125;.gorm.yaml</code>。查看全部配置文件：</p>
+<pre class="rounded-xl bg-code text-syntax-plain p-4 text-sm overflow-x-auto mb-6"># configs/service/ directory contains:
 configs/service/identity-service.yaml
 configs/service/identity-service.gorm.yaml
 configs/service/mfa-service.yaml

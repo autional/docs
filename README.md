@@ -1,10 +1,10 @@
 # Autional Docs
 
-**Domain**: docs.autional.com
+**Domain**: docs.autional.cn
 **Stack**: Astro 5 + Tailwind 3.4
-**Repository**: [github.com/autional/docs](https://github.com/autional/docs)
+**Repository**: [github.com/autional-cn/docs](https://github.com/autional-cn/docs)
 
-Documentation site for [Autional](https://www.autional.com) — Enterprise Identity & Access Management.
+Documentation site for [Autional](https://www.autional.cn) — Enterprise Identity & Access Management.
 
 ## Development
 

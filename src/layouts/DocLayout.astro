@@ -7,47 +7,50 @@ export interface Props {
   keywords?: string;
 }
 const {
-  title = 'Autional Docs',
-  description = 'Autional product documentation — architecture, authentication, security, multi-tenancy, compliance, deployment, and SDK guides.',
+  title = 'Autional 文档',
+  description = 'Autional 产品文档 —— 涵盖架构、认证、安全、多租户、合规、部署与 SDK 指南。',
   keywords,
 } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const pathname = Astro.url.pathname;
 const ogImage = new URL('/og-default.png', Astro.site).href;
 const navigation = [
-  { href: '/', label: 'Quick Start' },
-  { href: '/architecture', label: 'Architecture' },
-  { href: '/auth-concepts', label: 'Auth Concepts' },
-  { href: '/security', label: 'Security Guide' },
-  { href: '/multi-tenant', label: 'Multi-Tenancy' },
-  { href: '/compliance', label: 'Compliance' },
-  { href: '/api', label: 'API Reference' },
-  { href: '/configuration', label: 'Configuration' },
-  { href: '/deployment', label: 'Deployment' },
+  { href: '/', label: '快速开始' },
+  { href: '/architecture', label: '架构' },
+  { href: '/auth-concepts', label: '认证概念' },
+  { href: '/security', label: '安全指南' },
+  { href: '/multi-tenant', label: '多租户' },
+  { href: '/compliance', label: '合规' },
+  { href: '/api', label: 'API 参考' },
+  { href: '/configuration', label: '配置' },
+  { href: '/deployment', label: '部署' },
   { href: '/sdk', label: 'SDK' },
 ];
 ---
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/tokens.css" />
+    <link rel="stylesheet" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/profiles/docs.css" />
+    <link rel="icon" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon-16x16.png">
+    <link rel="icon" type="image/svg+xml" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/apple-touch-icon.png">
+    <link rel="manifest" href="https://cdn.autional.cn/ui/v0.1.0-rc.de498ca0/icons/site.webmanifest">
+
     <title>{title}</title>
     <meta name="description" content={description} />
     {keywords && <meta name="keywords" content={keywords} />}
     <link rel="canonical" href={canonical.href} />
-    <link rel="icon" type="image/png" sizes="680x680" href="/favicon-master-blue-v7.png?v=7" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=7" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=7" />
-    <link rel="shortcut icon" type="image/png" href="/favicon-32x32.png?v=7" />
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=7" />
-    <link rel="manifest" href="/site.webmanifest?v=7" />
-    <meta name="theme-color" content="#ffffff" />
+    <meta name="theme-color" content="#003153">
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical.href} />
     <meta property="og:type" content="website" />
-    <meta property="og:site_name" content="Autional Docs" />
+    <meta property="og:site_name" content="Autional 文档" />
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -58,40 +61,49 @@ const navigation = [
     <script type="application/ld+json" set:html={JSON.stringify({
       '@context': 'https://schema.org',
       '@type': 'WebSite',
-      name: 'Autional Docs',
-      url: 'https://docs.autional.com',
-      description: 'Product documentation for the Autional identity platform.',
-      publisher: { '@type': 'Organization', name: 'Autional', url: 'https://www.autional.com' },
+      name: 'Autional 文档',
+      url: 'https://docs.autional.cn',
+      description: 'Autional 身份平台的产品文档。',
+      publisher: { '@type': 'Organization', name: 'Autional', url: 'https://www.autional.cn' },
     })} />
   </head>
   <body class="min-h-screen text-neutral-900">
     <div class="relative overflow-hidden">
       <div class="absolute inset-x-0 top-0 -z-10 h-[28rem] bg-gradient-to-b from-sky-100/60 via-white/0 to-transparent"></div>
       <header class="sticky top-0 z-50 border-b border-white/60 bg-white/82 backdrop-blur-xl">
-        <div class="mx-auto flex max-w-7xl items-center justify-between gap-6 px-4 py-4 sm:px-6 lg:px-8">
+        <div class="mx-auto flex h-[var(--layout-header-height)] max-w-7xl items-center justify-between gap-6 px-4 sm:px-6 lg:px-8">
           <a href="/" class="flex items-center gap-4">
-            <img src="/logo-mark.svg" alt="Autional logo" class="h-10 w-10 object-contain" />
+            <img src="/logo-mark.svg" alt="Autional 徽标" class="h-10 w-10 object-contain" />
             <div>
-              <div class="text-lg font-extrabold tracking-[-0.04em] text-primary-800">Autional</div>
-              <div class="text-xs font-medium uppercase tracking-[0.28em] text-neutral-400">Documentation</div>
+              <div class="text-lg font-extrabold tracking-[var(--letter-spacing-display-lg)] text-primary-800">Autional</div>
+              <div class="text-xs font-medium uppercase tracking-[0.28em] text-[var(--color-text-muted)]">文档</div>
             </div>
           </a>
           <div class="hidden items-center gap-5 lg:flex">
-            <span class="brand-kicker">Docs Portal</span>
-            <a href="https://developer.autional.com" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">SDK</a>
-            <a href="https://reference.autional.com" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API Reference</a>
-            <a href="https://wiki.autional.com" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API Wiki</a>
-            <a href="https://github.com/autional/docs" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">GitHub</a>
-            <a href="https://www.autional.com" class="brand-button-secondary px-4 py-2 text-xs">autional.com</a>
+            <span class="brand-kicker">文档门户</span>
+            <a href="https://developer.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">SDK</a>
+            <a href="https://reference.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API 参考</a>
+            <a href="https://wiki.autional.cn" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">API Wiki</a>
+            <a href="https://github.com/autional-cn/docs" class="text-xs font-medium text-primary-500 hover:text-primary-700 transition">GitHub</a>
+            <a href="https://www.autional.cn" class="brand-button-secondary px-4 py-2 text-xs">autional.cn</a>
+          </div>
+        </div>
+        <div class="border-t border-white/60 lg:hidden">
+          <div class="mx-auto flex max-w-7xl items-center gap-5 overflow-x-auto px-4 py-2 sm:px-6">
+            <a href="https://developer.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">SDK</a>
+            <a href="https://reference.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">API 参考</a>
+            <a href="https://wiki.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">API Wiki</a>
+            <a href="https://github.com/autional-cn/docs" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">GitHub</a>
+            <a href="https://www.autional.cn" class="whitespace-nowrap text-xs font-medium text-primary-500 transition hover:text-primary-700">autional.cn</a>
           </div>
         </div>
       </header>
 
       <div class="mx-auto grid max-w-7xl gap-8 px-4 pb-20 pt-10 sm:px-6 lg:grid-cols-[280px_minmax(0,1fr)] lg:px-8">
-        <aside class="lg:sticky lg:top-24 lg:self-start">
+        <aside class="lg:sticky lg:top-[calc(var(--layout-header-height)+var(--space-8))] lg:self-start">
           <div class="brand-shell px-5 py-6">
             <p class="text-sm leading-7 text-neutral-600">
-              Product architecture, identity concepts, operational guidance, and API references for teams building on Autional.
+              面向基于 Autional 构建的团队，提供产品架构、身份概念、运维指南与 API 参考。
             </p>
             <nav class="mt-6 space-y-2">
               {navigation.map((item) => (

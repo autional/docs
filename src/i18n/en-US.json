@@ -1,0 +1,689 @@
+{
+  "lang": {
+    "switchToEn": "Switch to English",
+    "switchToZh": "Switch to Chinese"
+  },
+  "nav": {
+    "quickStart": "Quick Start",
+    "architecture": "Architecture",
+    "authConcepts": "Auth Concepts",
+    "securityGuide": "Security Guide",
+    "multiTenancy": "Multi-Tenancy",
+    "compliance": "Compliance",
+    "apiReference": "API Reference",
+    "configuration": "Configuration",
+    "deployment": "Deployment",
+    "sdk": "SDK"
+  },
+  "layout": {
+    "meta": {
+      "title": "Autional Docs",
+      "description": "Autional product documentation — architecture, authentication, security, multi-tenancy, compliance, deployment, and SDK guides."
+    },
+    "logoAlt": "Autional logo",
+    "brandSubtitle": "Documentation",
+    "kicker": "Docs Portal",
+    "asideIntro": "Product architecture, identity concepts, operational guidance, and API references for teams building on Autional.",
+    "jsonLdDescription": "Product documentation for the Autional identity platform."
+  },
+  "common": {
+    "yes": "Yes",
+    "no": "No"
+  },
+  "notFound": {
+    "meta": {
+      "title": "Page Not Found — Autional Docs",
+      "description": "The page you requested does not exist or has been moved. Continue browsing from the entry points below."
+    },
+    "kicker": "404",
+    "title": "Page Not Found",
+    "lead": "The page you requested does not exist or has been moved. Check the link, or continue from the entry points below; you can also use the sidebar navigation to reach other documentation pages.",
+    "links": [
+      {
+        "label": "Quick Start",
+        "href": "/",
+        "description": "Run the full Autional platform locally in 3 steps."
+      },
+      {
+        "label": "Architecture",
+        "href": "/architecture",
+        "description": "Understand the 4-tier architecture, shared layers, and 27 microservices."
+      },
+      {
+        "label": "API Reference",
+        "href": "/api",
+        "description": "Inspect gateway docs, service paths, and OpenAPI entry points."
+      },
+      {
+        "label": "SDK",
+        "href": "/sdk",
+        "description": "React SDK, onboarding CLI, and @autional packages."
+      }
+    ]
+  },
+  "index": {
+    "meta": {
+      "title": "Quick Start — Autional Docs",
+      "description": "Run the full Autional identity platform locally in 3 steps. Clone, boot with Docker Compose, and sign in to the admin console."
+    },
+    "kicker": "Documentation Portal",
+    "title": "Run the full Autional platform locally in 3 clear steps.",
+    "lead": "This documentation hub helps new engineers go from local boot to system understanding quickly. Start the platform, validate the gateway, then move into the docs that match your task: architecture, APIs, security, or deployment.",
+    "nextTitle": "Next Stops",
+    "steps": [
+      {
+        "title": "Clone and boot the platform",
+        "body": "Start the local stack so every service, gateway route, and operational dependency is available for exploration.",
+        "command": "# Boot the full local stack (middleware + all 27 services); the first run takes about 2-3 minutes\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+      },
+      {
+        "title": "Verify the gateway",
+        "body": "Check health first, then move into the interactive docs once the gateway is responding.",
+        "command": "curl http://localhost:11080/health\nopen http://localhost:11080/docs/"
+      },
+      {
+        "title": "Sign in to the admin console",
+        "body": "Sign in with the sample credentials (local demos only — do not use in production) to inspect tenants, auth flows, policies, and configuration from the UI.",
+        "command": "http://localhost:11080\nadmin@admin.com / admin123"
+      }
+    ],
+    "links": [
+      {
+        "label": "Architecture",
+        "href": "/architecture",
+        "description": "Understand the 4-tier architecture, shared layers, and 27 microservices."
+      },
+      {
+        "label": "Security Guide",
+        "href": "/security",
+        "description": "Review MFA, audit, encryption, and production hardening decisions."
+      },
+      {
+        "label": "API Reference",
+        "href": "/api",
+        "description": "Inspect gateway docs, service paths, and OpenAPI entry points."
+      },
+      {
+        "label": "Deployment",
+        "href": "/deployment",
+        "description": "Move from local development to repeatable production deployment."
+      }
+    ]
+  },
+  "api": {
+    "meta": {
+      "title": "API Reference — Autional Docs",
+      "description": "Autional API reference — 27 microservices with OpenAPI 3.0 specs, 1,400+ REST endpoints, and interactive Swagger docs via the gateway."
+    },
+    "title": "API Reference",
+    "lead": "All 27 microservices ship OpenAPI 3.0 specifications. Browse the interactive docs via the gateway, or fetch the raw spec files directly.",
+    "interactiveTitle": "Interactive API Docs",
+    "endpoints": {
+      "title": "Key Endpoints",
+      "service": "Service",
+      "port": "Port",
+      "basePath": "Base Path"
+    },
+    "spec": {
+      "title": "Spec Files",
+      "lead": "Raw OpenAPI spec files are available per service by name, ready to download or use for code generation:",
+      "exampleComment": "# Example: spec file for the identity service:"
+    }
+  },
+  "architecture": {
+    "meta": {
+      "title": "Architecture — Autional Docs",
+      "description": "Autional architecture overview — 27 Go microservices in a 4-tier design with cross-cutting security and observability."
+    },
+    "title": "Architecture",
+    "lead": "Autional runs as 27 independently deployable Go microservices, organized in a 4-tier architecture with a cross-cutting layer.",
+    "tier1": {
+      "title": "Tier 1: Foundation",
+      "layer": "Layer",
+      "modules": "Modules",
+      "purpose": "Purpose",
+      "rows": [
+        {
+          "layer": "base/",
+          "modules": "base/error, base/config, base/idgen",
+          "purpose": "Zero-dependency foundation: errors, config loading, ID generation"
+        },
+        {
+          "layer": "util/",
+          "modules": "util/jwt, util/random, util/retry",
+          "purpose": "Utilities with minimal external dependencies"
+        }
+      ]
+    },
+    "tier2": {
+      "title": "Tier 2: Infrastructure",
+      "module": "Module",
+      "integration": "Integration",
+      "port": "Port",
+      "rows": [
+        {
+          "module": "infra-client/gorm",
+          "integration": "PostgreSQL, MySQL",
+          "port": "5432"
+        },
+        {
+          "module": "infra-client/redis",
+          "integration": "Redis, Valkey",
+          "port": "6379"
+        },
+        {
+          "module": "infra-client/messagequeue",
+          "integration": "RabbitMQ, Kafka",
+          "port": "5672"
+        }
+      ]
+    },
+    "tier3": {
+      "title": "Tier 3: Domain",
+      "leadBefore": "Shared domain models under ",
+      "leadMid": " and middleware in ",
+      "leadAfter": ".",
+      "middlewareLabel": "middleware:",
+      "middlewareBody": "auth (JWT/IP whitelist), app bootstrap, gRPC factory, error handler, audit, tenant resolver",
+      "sharedLabel": "shared:",
+      "sharedBody": "domain events (550+ event types), RBAC, ABAC, ReBAC, PIM, compliance, wallet, billing, notification"
+    },
+    "tier4": {
+      "title": "Tier 4: Business Services (27)"
+    },
+    "cross": {
+      "title": "Cross-Cutting",
+      "lead": " — ports, error codes, event names, table names, RBAC permissions. Every service depends on this layer."
+    }
+  },
+  "authConcepts": {
+    "meta": {
+      "title": "Auth Concepts — Autional Docs",
+      "description": "How authentication works in Autional — password hashing, token management, OIDC flows, session lifecycle, and multi-factor authentication."
+    },
+    "title": "Authentication Concepts",
+    "lead": "How authentication works in Autional — from password hashing to OIDC flows.",
+    "modes": {
+      "title": "Password Transmission Modes",
+      "lead": "Autional supports 4 password transmission modes, configurable per tenant:",
+      "mode": "Mode",
+      "security": "Security",
+      "useCase": "Use Case",
+      "rows": [
+        {
+          "mode": "plain",
+          "security": "Low",
+          "useCase": "Local development, trusted network"
+        },
+        {
+          "mode": "hash",
+          "security": "Medium",
+          "useCase": "Standard SaaS, HTTPS required"
+        },
+        {
+          "mode": "symmetric",
+          "security": "High",
+          "useCase": "ECDH key exchange + AES-256-GCM"
+        },
+        {
+          "mode": "asymmetric",
+          "security": "Highest",
+          "useCase": "RSA-OAEP, for regulated industries"
+        }
+      ]
+    },
+    "hashing": {
+      "title": "Password Hashing (Server-Side)",
+      "before": "After transmission, passwords are hashed with ",
+      "mid": " (KDF) + ",
+      "after": ". The system also keeps bcrypt as a fallback for legacy data and supports per-tenant algorithm selection."
+    },
+    "session": {
+      "title": "Session & Token Flow"
+    },
+    "oauth": {
+      "title": "OAuth 2.1 / OIDC",
+      "lead": "Autional implements the full OAuth 2.1 + OpenID Connect provider stack:",
+      "items": [
+        "Authorization Code + PKCE (RFC 7636)",
+        "Client Credentials (M2M)",
+        "Device Authorization (RFC 8628)",
+        "Token Exchange (RFC 8693) — NHI and AI agent authentication",
+        "DPoP (Demonstrating Proof of Possession)",
+        "JARM (JWT-Secured Authorization Response)",
+        "Dynamic Client Registration (RFC 7591)",
+        "Rich Authorization Request (RFC 9396)"
+      ]
+    },
+    "saml": {
+      "title": "SAML 2.0",
+      "body": "Enterprise single sign-on (SSO) via SAML 2.0 IdP, with metadata exchange, SLO, and attribute mapping. Configured through the admin console."
+    }
+  },
+  "security": {
+    "meta": {
+      "title": "Security Guide — Autional Docs",
+      "description": "Security best practices for Autional in production — secret management, TLS, password policies, API key rotation, and audit logging."
+    },
+    "title": "Security Guide",
+    "lead": "Security best practices for configuring Autional in production environments.",
+    "mfa": {
+      "title": "MFA Configuration",
+      "lead": "Autional supports 5 MFA methods, configurable per tenant:",
+      "method": "Method",
+      "phishing": "Phishing Resistance",
+      "setup": "Setup",
+      "rows": [
+        {
+          "method": "TOTP (Authenticator App)",
+          "phishing": "Medium",
+          "setup": "1 min"
+        },
+        {
+          "method": "WebAuthn / Passkey / FIDO2",
+          "phishing": "✅ High",
+          "setup": "1 min"
+        },
+        {
+          "method": "SMS OTP",
+          "phishing": "Low (SIM swap risk)",
+          "setup": "Instant"
+        },
+        {
+          "method": "Email OTP",
+          "phishing": "Medium",
+          "setup": "Instant"
+        },
+        {
+          "method": "Push Notification",
+          "phishing": "Medium",
+          "setup": "1 min"
+        }
+      ]
+    },
+    "adaptive": {
+      "title": "Adaptive MFA (Risk Engine)",
+      "lead": "The adaptive MFA engine evaluates 10 signal categories to determine authentication risk:",
+      "items": [
+        {
+          "label": "IP risk",
+          "body": "— risk scoring based on the source IP"
+        },
+        {
+          "label": "Login failure rate",
+          "body": "— detection of repeated failures within a short window"
+        },
+        {
+          "label": "New device",
+          "body": "— first-seen device fingerprint"
+        },
+        {
+          "label": "Location",
+          "body": "— geolocation risk assessment"
+        },
+        {
+          "label": "Unusual time",
+          "body": "— sign-ins outside normal activity hours"
+        },
+        {
+          "label": "New country",
+          "body": "— first-seen country/region"
+        },
+        {
+          "label": "Velocity anomaly",
+          "body": "— impossible-travel detection"
+        },
+        {
+          "label": "Credential leak",
+          "body": "— breached password detection (HIBP)"
+        },
+        {
+          "label": "MFA method change",
+          "body": "— change detection for MFA methods"
+        },
+        {
+          "label": "Session hijacking",
+          "body": "— session hijack detection"
+        }
+      ]
+    },
+    "policy": {
+      "title": "Password Policy",
+      "lead": "Per-tenant configurable password policies:",
+      "items": [
+        "Minimum/maximum length, complexity rules (upper, lower, digit, special)",
+        "Password history (the most recent N passwords cannot be reused)",
+        "Expiry (configurable days, forced reset on expiry)",
+        "Breach detection (HIBP database check)",
+        "Account lockout (threshold + lock duration)"
+      ]
+    },
+    "encryption": {
+      "title": "Encryption at Rest",
+      "body": "Field-level AES-256-GCM encryption with key rotation support; SM4-GCM for national cryptography compliance."
+    },
+    "audit": {
+      "title": "Audit Trail",
+      "body": "All authentication events are recorded in an immutable Merkle hash chain audit log, with cryptographic verification for tamper-proof integrity."
+    }
+  },
+  "multiTenant": {
+    "meta": {
+      "title": "Multi-Tenancy — Autional Docs",
+      "description": "B2B SaaS multi-tenancy in Autional — per-tenant isolation, custom branding, domain verification, and tenant-aware RBAC."
+    },
+    "title": "Multi-Tenancy Guide",
+    "lead": "Autional was built for B2B SaaS multi-tenancy from day one. Every feature is tenant-aware by design.",
+    "isolation": {
+      "title": "Three-Layer Isolation",
+      "layer": "Layer",
+      "enforcement": "Enforcement",
+      "rows": [
+        {
+          "name": "1. Schema",
+          "enforcement": "Every table has a tenant_id column"
+        },
+        {
+          "name": "2. Repository",
+          "enforcement": "Every query includes a tenant_id WHERE clause"
+        },
+        {
+          "name": "3. Handler",
+          "enforcement": "tenant_id is taken from the auth context, never from the request body"
+        }
+      ]
+    },
+    "config": {
+      "title": "Tenant Configuration",
+      "lead": "Each tenant can be configured independently:",
+      "items": [
+        {
+          "label": "Password policy",
+          "body": "— min length, complexity, expiry, breach check"
+        },
+        {
+          "label": "MFA policy",
+          "body": "— required methods, risk thresholds"
+        },
+        {
+          "label": "Session policy",
+          "body": "— timeout duration, refresh limits"
+        },
+        {
+          "label": "Branding",
+          "body": "— custom login page, logo, colors, domain"
+        },
+        {
+          "label": "Feature gates",
+          "body": "— plan-based feature enablement"
+        },
+        {
+          "label": "SSO providers",
+          "body": "— SAML/OIDC IdP configuration"
+        }
+      ]
+    },
+    "members": {
+      "title": "Member Management",
+      "lead": "Tenant members are managed through an invitation workflow:",
+      "body": "Supports departmental hierarchy, delegated administration, and bulk imports (SCIM 2.0)."
+    },
+    "nhi": {
+      "title": "NHI (Non-Human Identity)",
+      "lead": "AI agents, robots, and IoT devices are first-class identity citizens in Autional. Each NHI type has its own lifecycle state machine and authentication methods.",
+      "items": [
+        {
+          "label": "Agent",
+          "states": ": provisioning → active → rotating → revoked → deleted"
+        },
+        {
+          "label": "Robot",
+          "states": ": commissioning → active → degraded → decommissioned → deleted"
+        },
+        {
+          "label": "Device",
+          "states": ": unpaired → active → transferring → revoked → deleted"
+        }
+      ]
+    }
+  },
+  "compliance": {
+    "meta": {
+      "title": "Compliance — Autional Docs",
+      "description": "Compliance tools in Autional — control libraries and workflow tooling for 10 standards: ISO 27001, SOC 2, GDPR, HIPAA, PCI DSS, PSD2, PIPL, Dengbao 2.0, NIST SP 800-63B, and minor protection."
+    },
+    "title": "Compliance Tools",
+    "warning1": "⚠️ Autional is NOT certified for any compliance framework.",
+    "warning2": {
+      "before": "The tools described on this page help you ",
+      "strong1": "manage compliance workflows",
+      "mid": " within your organization. They are ",
+      "strong2": "not certifications",
+      "after": " held by Autional. Achieving certification requires organization-specific policies, controls, and third-party audits. Do not rely on these tools alone for compliance."
+    },
+    "lead": "Autional includes built-in control libraries and workflow tooling for 10 compliance standards. These tools are designed to help your organization manage compliance processes — they are not certifications themselves.",
+    "tooling": {
+      "title": "Built-In Compliance Tooling",
+      "framework": "Framework",
+      "support": "Built-In Support",
+      "rows": [
+        {
+          "standard": "GDPR",
+          "support": "DSAR request management, 16-service erasure orchestration, consent audit trail (13 controls)"
+        },
+        {
+          "standard": "ISO/IEC 27001:2022",
+          "support": "Annex A access control family (A.5.15–A.8.16) control register (10 controls)"
+        },
+        {
+          "standard": "SOC 2 Type II",
+          "support": "CC6 logical and physical access common criteria controls (10 controls)"
+        },
+        {
+          "standard": "PCI DSS v4.0.1",
+          "support": "IAM-related controls and evidence management (14 controls)"
+        },
+        {
+          "standard": "HIPAA Security Rule",
+          "support": "IAM-related controls (9 controls)"
+        },
+        {
+          "standard": "PSD2 SCA",
+          "support": "Strong Customer Authentication (SCA) technical requirement controls (8 controls)"
+        },
+        {
+          "standard": "PIPL (Personal Information Protection Law)",
+          "support": "Notice-consent and related IAM provision controls (10 controls)"
+        },
+        {
+          "standard": "Dengbao 2.0 Level 3",
+          "support": "Identity authentication / access control / security audit controls (20 controls)"
+        },
+        {
+          "standard": "NIST SP 800-63B v4",
+          "support": "Authenticator and verifier requirement controls (AAL1–AAL3) (17 controls)"
+        },
+        {
+          "standard": "Minor Protection Framework",
+          "support": "COPPA / PIPL minor protection / GDPR Art.8 / UK Code consolidated controls (12 controls)"
+        }
+      ]
+    },
+    "features": {
+      "title": "Key Technical Features"
+    },
+    "hash": {
+      "title": "Hash-Chain Audit Logs",
+      "body": "Every authentication event is recorded in a Merkle hash chain. The integrity of the chain can be cryptographically verified, providing tamper-proof evidence for auditors."
+    },
+    "retention": {
+      "title": "Data Retention",
+      "body": "Retention policies are configurable per data type, with scheduled archival and cleanup jobs; audit logs can be retained indefinitely."
+    },
+    "classification": {
+      "title": "Data Classification",
+      "body": "Data classification and grading management: label sensitivity levels by data category, with level values customizable per organization."
+    }
+  },
+  "configuration": {
+    "meta": {
+      "title": "Configuration — Autional Docs",
+      "description": "Common environment variable reference for all 27 Autional microservices — database, Redis, RabbitMQ, JWT, and service-specific configuration."
+    },
+    "title": "Configuration Reference",
+    "lead": {
+      "before": "Common environment variables used by all 27 Autional microservices (the full set is defined in each service's ",
+      "mid": "). Override them in ",
+      "after": "."
+    },
+    "table": {
+      "variable": "Variable",
+      "description": "Description",
+      "required": "Required",
+      "default": "Default"
+    },
+    "vars": [
+      "Token signing key (min 32 chars)",
+      "Pepper for argon2id password hashing",
+      "Service-to-service authentication key",
+      "PostgreSQL hostname",
+      "PostgreSQL port",
+      "PostgreSQL user",
+      "PostgreSQL password",
+      "Redis hostname",
+      "Redis port",
+      "Redis password",
+      "RabbitMQ hostname",
+      "RabbitMQ port",
+      "RabbitMQ user",
+      "RabbitMQ password",
+      "Runtime environment: development | production",
+      "MongoDB hostname (audit service)",
+      "MongoDB port (audit service)",
+      "MinIO/S3 endpoint (storage service)"
+    ],
+    "files": {
+      "title": "Configuration Files",
+      "lead": {
+        "before": "Each service reads YAML config from ",
+        "mid": "; database-related settings live in ",
+        "after": ". View all config files:"
+      }
+    }
+  },
+  "deployment": {
+    "meta": {
+      "title": "Deployment — Autional Docs",
+      "description": "Deploy Autional in production — Docker Compose orchestration, key environment variables, and the monitoring stack."
+    },
+    "title": "Deployment",
+    "lead": "Deploy Autional in production with Docker Compose orchestration.",
+    "compose": {
+      "title": "Docker Compose",
+      "code": "# Production: use separate infra + services compose files\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+    },
+    "config": {
+      "title": "Configuration",
+      "lead": "Key environment variables to set for production:",
+      "variable": "Variable",
+      "description": "Description",
+      "required": "Required",
+      "rows": [
+        {
+          "name": "JWT_SECRET",
+          "desc": "Token signing key (min 32 chars)"
+        },
+        {
+          "name": "PASSWORD_PEPPER",
+          "desc": "Pepper for password hashing"
+        },
+        {
+          "name": "INTERNAL_API_KEY",
+          "desc": "Service-to-service auth"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "desc": "PostgreSQL password"
+        },
+        {
+          "name": "REDIS_PASSWORD",
+          "desc": "Redis password"
+        }
+      ]
+    },
+    "tls": {
+      "title": "SSL / TLS",
+      "before": "For production, use Let's Encrypt or your own CA. The gateway nginx handles SSL termination. Reference self-signed certificates are in ",
+      "after": "."
+    },
+    "monitoring": {
+      "title": "Monitoring",
+      "lead": "Built-in Prometheus + Grafana dashboards monitor all 27 services; Alertmanager handles alert routing; tracing collects OpenTelemetry data via Jaeger.",
+      "code": "# The monitoring stack ships with the full environment orchestration (docker-compose.dev-cloud.yml includes Prometheus / Grafana / Alertmanager / Jaeger)\n# Grafana: http://localhost:20300"
+    }
+  },
+  "sdk": {
+    "meta": {
+      "title": "SDK — Autional Docs",
+      "description": "Autional npm packages — React SDK, per-service API clients, the onboarding CLI, and design-system / engineering config packages under the @autional scope."
+    },
+    "title": "SDK",
+    "lead": {
+      "before": "Autional ships npm packages under the ",
+      "mid": " scope: a React SDK, per-service API clients, an onboarding CLI, and design-system / engineering config packages."
+    },
+    "react": {
+      "title": "React",
+      "lead": "Provider component that injects authentication context into your app:"
+    },
+    "onboarding": {
+      "title": "Onboarding CLI",
+      "lead": "Interactively create and onboard a new project:"
+    },
+    "packages": {
+      "title": "All Packages",
+      "name": "Package",
+      "description": "Description",
+      "items": [
+        {
+          "name": "@autional/react",
+          "desc": "React SDK: auth hooks and components"
+        },
+        {
+          "name": "@autional/onboard",
+          "desc": "Onboarding CLI: create and onboard React / Vue / Next.js projects"
+        },
+        {
+          "name": "@autional/ui",
+          "desc": "React component library"
+        },
+        {
+          "name": "@autional/tokens",
+          "desc": "Design tokens (CSS variables)"
+        },
+        {
+          "name": "@autional/tailwind-preset",
+          "desc": "Tailwind preset (brand theme)"
+        },
+        {
+          "name": "@autional/shared",
+          "desc": "Shared utilities: API client, auth, types, and hooks"
+        },
+        {
+          "name": "@autional/eslint-config",
+          "desc": "Shared ESLint config"
+        },
+        {
+          "name": "@autional/tsconfig",
+          "desc": "Shared TypeScript config"
+        }
+      ]
+    },
+    "catalog": {
+      "before": "Browse the full SDK catalog at ",
+      "mid": ", or the source on ",
+      "after": ".",
+      "orgLink": "the autional org on GitHub"
+    }
+  }
+}

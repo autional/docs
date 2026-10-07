@@ -1,0 +1,689 @@
+{
+  "lang": {
+    "switchToEn": "切换到英文",
+    "switchToZh": "切换到中文"
+  },
+  "nav": {
+    "quickStart": "快速开始",
+    "architecture": "架构",
+    "authConcepts": "认证概念",
+    "securityGuide": "安全指南",
+    "multiTenancy": "多租户",
+    "compliance": "合规",
+    "apiReference": "API 参考",
+    "configuration": "配置",
+    "deployment": "部署",
+    "sdk": "SDK"
+  },
+  "layout": {
+    "meta": {
+      "title": "Autional 文档",
+      "description": "Autional 产品文档 —— 涵盖架构、认证、安全、多租户、合规、部署与 SDK 指南。"
+    },
+    "logoAlt": "Autional 徽标",
+    "brandSubtitle": "文档",
+    "kicker": "文档门户",
+    "asideIntro": "面向基于 Autional 构建的团队，提供产品架构、身份概念、运维指南与 API 参考。",
+    "jsonLdDescription": "Autional 身份平台的产品文档。"
+  },
+  "common": {
+    "yes": "是",
+    "no": "否"
+  },
+  "notFound": {
+    "meta": {
+      "title": "页面未找到 — Autional 文档",
+      "description": "你访问的页面不存在或已被移动。请从站内入口继续浏览其他文档。"
+    },
+    "kicker": "404",
+    "title": "页面未找到",
+    "lead": "你访问的页面不存在或已被移动。请检查链接是否正确，或从下方入口继续浏览；也可以使用左侧导航访问其他文档页。",
+    "links": [
+      {
+        "label": "快速开始",
+        "href": "/",
+        "description": "3 步在本地运行完整的 Autional 平台。"
+      },
+      {
+        "label": "架构",
+        "href": "/architecture",
+        "description": "了解 4 层架构、共享层与 27 个微服务。"
+      },
+      {
+        "label": "API 参考",
+        "href": "/api",
+        "description": "查看网关文档、服务路径与 OpenAPI 入口。"
+      },
+      {
+        "label": "SDK",
+        "href": "/sdk",
+        "description": "React SDK、接入脚手架与 @autional 包。"
+      }
+    ]
+  },
+  "index": {
+    "meta": {
+      "title": "快速开始 — Autional 文档",
+      "description": "3 步在本地运行完整的 Autional 身份平台：克隆代码、用 Docker Compose 启动、登录管理控制台。"
+    },
+    "kicker": "文档门户",
+    "title": "3 个清晰步骤，在本地运行完整的 Autional 平台。",
+    "lead": "本文档中心帮助新加入的工程师快速完成从本地启动到理解系统的全过程。先启动平台、验证网关，再按自己的任务选择对应文档：架构、API、安全或部署。",
+    "nextTitle": "下一步",
+    "steps": [
+      {
+        "title": "克隆并启动平台",
+        "body": "启动本地整套环境，随后即可浏览每个服务、网关路由与运行依赖。",
+        "command": "# 启动本地整套环境（中间件 + 全部 27 个服务），首次约需 2-3 分钟\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+      },
+      {
+        "title": "验证网关",
+        "body": "先检查健康状态，网关响应正常后再进入交互式文档。",
+        "command": "curl http://localhost:11080/health\nopen http://localhost:11080/docs/"
+      },
+      {
+        "title": "登录管理控制台",
+        "body": "使用示例账号登录（仅限本地演示，请勿用于生产），即可在界面中查看租户、认证流程、策略与配置。",
+        "command": "http://localhost:11080\nadmin@admin.com / admin123"
+      }
+    ],
+    "links": [
+      {
+        "label": "架构",
+        "href": "/architecture",
+        "description": "了解 4 层架构、共享层与 27 个微服务。"
+      },
+      {
+        "label": "安全指南",
+        "href": "/security",
+        "description": "了解 MFA、审计、加密与生产环境加固方案。"
+      },
+      {
+        "label": "API 参考",
+        "href": "/api",
+        "description": "查看网关文档、服务路径与 OpenAPI 入口。"
+      },
+      {
+        "label": "部署",
+        "href": "/deployment",
+        "description": "从本地开发过渡到可重复的生产部署。"
+      }
+    ]
+  },
+  "api": {
+    "meta": {
+      "title": "API 参考 — Autional 文档",
+      "description": "Autional API 参考 —— 27 个微服务的 OpenAPI 3.0 规范、1,400+ REST 端点，以及经网关访问的交互式 Swagger 文档。"
+    },
+    "title": "API 参考",
+    "lead": "全部 27 个微服务都提供 OpenAPI 3.0 规范。你可以通过网关浏览交互式文档，也可以直接获取原始规范文件。",
+    "interactiveTitle": "交互式 API 文档",
+    "endpoints": {
+      "title": "关键端点",
+      "service": "服务",
+      "port": "端口",
+      "basePath": "基础路径"
+    },
+    "spec": {
+      "title": "规范文件",
+      "lead": "每个服务的原始 OpenAPI 规范文件按服务名提供，可直接下载或用于代码生成：",
+      "exampleComment": "# 例如 identity 服务的规范文件："
+    }
+  },
+  "architecture": {
+    "meta": {
+      "title": "架构 — Autional 文档",
+      "description": "Autional 架构总览 —— 采用 4 层设计的 27 个 Go 微服务，并配备横切的安全与可观测能力。"
+    },
+    "title": "架构",
+    "lead": "Autional 由 27 个可独立部署的 Go 微服务组成，采用 4 层架构并配备一个横切层。",
+    "tier1": {
+      "title": "第 1 层：基础层",
+      "layer": "层",
+      "modules": "模块",
+      "purpose": "用途",
+      "rows": [
+        {
+          "layer": "base/",
+          "modules": "base/error, base/config, base/idgen",
+          "purpose": "零依赖基础库：错误处理、配置加载、ID 生成"
+        },
+        {
+          "layer": "util/",
+          "modules": "util/jwt, util/random, util/retry",
+          "purpose": "外部依赖极少的工具库"
+        }
+      ]
+    },
+    "tier2": {
+      "title": "第 2 层：基础设施层",
+      "module": "模块",
+      "integration": "集成",
+      "port": "端口",
+      "rows": [
+        {
+          "module": "infra-client/gorm",
+          "integration": "PostgreSQL, MySQL",
+          "port": "5432"
+        },
+        {
+          "module": "infra-client/redis",
+          "integration": "Redis, Valkey",
+          "port": "6379"
+        },
+        {
+          "module": "infra-client/messagequeue",
+          "integration": "RabbitMQ, Kafka",
+          "port": "5672"
+        }
+      ]
+    },
+    "tier3": {
+      "title": "第 3 层：领域层",
+      "leadBefore": "共享领域模型位于 ",
+      "leadMid": "，中间件位于 ",
+      "leadAfter": "。",
+      "middlewareLabel": "middleware：",
+      "middlewareBody": "认证（JWT/IP 白名单）、应用启动引导、gRPC 工厂、错误处理、审计、租户解析",
+      "sharedLabel": "shared：",
+      "sharedBody": "领域事件（550+ 种事件类型）、RBAC、ABAC、ReBAC、PIM、合规、钱包、计费、通知"
+    },
+    "tier4": {
+      "title": "第 4 层：业务服务（27 个）"
+    },
+    "cross": {
+      "title": "横切层",
+      "lead": " —— 端口、错误码、事件名、表名、RBAC 权限。所有服务都依赖该层。"
+    }
+  },
+  "authConcepts": {
+    "meta": {
+      "title": "认证概念 — Autional 文档",
+      "description": "Autional 的认证工作原理 —— 密码哈希、令牌管理、OIDC 流程、会话生命周期与多因素认证。"
+    },
+    "title": "认证概念",
+    "lead": "Autional 的认证工作原理 —— 从密码哈希到 OIDC 流程。",
+    "modes": {
+      "title": "密码传输模式",
+      "lead": "Autional 支持 4 种密码传输模式，可按租户配置：",
+      "mode": "模式",
+      "security": "安全性",
+      "useCase": "适用场景",
+      "rows": [
+        {
+          "mode": "plain",
+          "security": "低",
+          "useCase": "本地开发、可信网络"
+        },
+        {
+          "mode": "hash",
+          "security": "中",
+          "useCase": "标准 SaaS，需启用 HTTPS"
+        },
+        {
+          "mode": "symmetric",
+          "security": "高",
+          "useCase": "ECDH 密钥交换 + AES-256-GCM"
+        },
+        {
+          "mode": "asymmetric",
+          "security": "最高",
+          "useCase": "RSA-OAEP，适用于受监管行业"
+        }
+      ]
+    },
+    "hashing": {
+      "title": "密码哈希（服务端）",
+      "before": "传输完成后，密码使用 ",
+      "mid": "（KDF）+ ",
+      "after": " 进行哈希。系统同时保留 bcrypt 兜底方案以兼容存量数据，并支持按租户选择算法。"
+    },
+    "session": {
+      "title": "会话与令牌流程"
+    },
+    "oauth": {
+      "title": "OAuth 2.1 / OIDC",
+      "lead": "Autional 实现了完整的 OAuth 2.1 + OpenID Connect 提供方技术栈：",
+      "items": [
+        "授权码 + PKCE（RFC 7636）",
+        "客户端凭证（M2M）",
+        "设备授权（RFC 8628）",
+        "令牌交换（RFC 8693）—— NHI 与 AI 智能体认证",
+        "DPoP（持有证明）",
+        "JARM（受 JWT 保护的授权响应）",
+        "动态客户端注册（RFC 7591）",
+        "富授权请求（RFC 9396）"
+      ]
+    },
+    "saml": {
+      "title": "SAML 2.0",
+      "body": "通过 SAML 2.0 IdP 实现企业单点登录（SSO），支持元数据交换、SLO 与属性映射，可在管理控制台中配置。"
+    }
+  },
+  "security": {
+    "meta": {
+      "title": "安全指南 — Autional 文档",
+      "description": "Autional 生产环境安全最佳实践 —— 密钥管理、TLS、密码策略、API 密钥轮换与审计日志。"
+    },
+    "title": "安全指南",
+    "lead": "在生产环境中配置 Autional 的安全最佳实践。",
+    "mfa": {
+      "title": "MFA 配置",
+      "lead": "Autional 支持 5 种 MFA 方式，可按租户配置：",
+      "method": "方式",
+      "phishing": "抗钓鱼能力",
+      "setup": "配置耗时",
+      "rows": [
+        {
+          "method": "TOTP（身份验证器应用）",
+          "phishing": "中",
+          "setup": "1 分钟"
+        },
+        {
+          "method": "WebAuthn / Passkey / FIDO2",
+          "phishing": "✅ 高",
+          "setup": "1 分钟"
+        },
+        {
+          "method": "SMS OTP",
+          "phishing": "低（存在 SIM 卡劫持风险）",
+          "setup": "即时"
+        },
+        {
+          "method": "Email OTP",
+          "phishing": "中",
+          "setup": "即时"
+        },
+        {
+          "method": "推送通知",
+          "phishing": "中",
+          "setup": "1 分钟"
+        }
+      ]
+    },
+    "adaptive": {
+      "title": "自适应 MFA（风险引擎）",
+      "lead": "自适应 MFA 引擎会评估 10 类信号以判定认证风险：",
+      "items": [
+        {
+          "label": "IP 风险",
+          "body": "—— 基于来源 IP 的风险评估"
+        },
+        {
+          "label": "登录失败率",
+          "body": "—— 短时间连续失败的频率检测"
+        },
+        {
+          "label": "新设备",
+          "body": "—— 首次出现的设备指纹"
+        },
+        {
+          "label": "位置",
+          "body": "—— 地理位置风险评估"
+        },
+        {
+          "label": "非常规时段",
+          "body": "—— 与常规活跃时段不符的登录"
+        },
+        {
+          "label": "新国家",
+          "body": "—— 首次出现的国家/地区"
+        },
+        {
+          "label": "速度异常",
+          "body": "—— 位置速度异常（不可能旅行）检测"
+        },
+        {
+          "label": "凭据泄露",
+          "body": "—— 泄露密码检测（HIBP）"
+        },
+        {
+          "label": "MFA 方式变更",
+          "body": "—— MFA 方式变更检测"
+        },
+        {
+          "label": "会话劫持",
+          "body": "—— 会话劫持检测"
+        }
+      ]
+    },
+    "policy": {
+      "title": "密码策略",
+      "lead": "可按租户配置的密码策略：",
+      "items": [
+        "最小/最大长度、复杂度规则（大写、小写、数字、特殊字符）",
+        "密码历史（禁止复用最近 N 个历史密码）",
+        "有效期（可配置天数，到期强制重置）",
+        "泄露检测（HIBP 数据库比对）",
+        "账号锁定（阈值 + 锁定时长）"
+      ]
+    },
+    "encryption": {
+      "title": "静态加密",
+      "body": "字段级 AES-256-GCM 加密并支持密钥轮换；面向国密合规提供 SM4-GCM。"
+    },
+    "audit": {
+      "title": "审计追踪",
+      "body": "所有认证事件都会记录到不可篡改的 Merkle 哈希链审计日志中，并通过密码学验证确保防篡改完整性。"
+    }
+  },
+  "multiTenant": {
+    "meta": {
+      "title": "多租户 — Autional 文档",
+      "description": "Autional 的 B2B SaaS 多租户能力 —— 按租户隔离、自定义品牌、域名验证与租户感知的 RBAC。"
+    },
+    "title": "多租户指南",
+    "lead": "Autional 从第一天起就为 B2B SaaS 多租户而设计，每项功能天然具备租户感知能力。",
+    "isolation": {
+      "title": "三层隔离",
+      "layer": "层级",
+      "enforcement": "强制手段",
+      "rows": [
+        {
+          "name": "1. Schema",
+          "enforcement": "每张表都有 tenant_id 列"
+        },
+        {
+          "name": "2. Repository",
+          "enforcement": "每个查询都带 tenant_id 的 WHERE 条件"
+        },
+        {
+          "name": "3. Handler",
+          "enforcement": "tenant_id 取自认证上下文，绝不取自请求体"
+        }
+      ]
+    },
+    "config": {
+      "title": "租户配置",
+      "lead": "每个租户都可以独立配置：",
+      "items": [
+        {
+          "label": "密码策略",
+          "body": "—— 最小长度、复杂度、有效期、泄露检测"
+        },
+        {
+          "label": "MFA 策略",
+          "body": "—— 必需方式、风险阈值"
+        },
+        {
+          "label": "会话策略",
+          "body": "—— 超时时长、刷新次数限制"
+        },
+        {
+          "label": "品牌定制",
+          "body": "—— 自定义登录页、Logo、配色、域名"
+        },
+        {
+          "label": "功能开关",
+          "body": "—— 按定价档位启用功能"
+        },
+        {
+          "label": "SSO 提供方",
+          "body": "—— SAML/OIDC IdP 配置"
+        }
+      ]
+    },
+    "members": {
+      "title": "成员管理",
+      "lead": "租户成员通过邀请流程进行管理：",
+      "body": "支持部门层级、委派管理以及批量导入（SCIM 2.0）。"
+    },
+    "nhi": {
+      "title": "NHI（非人类身份）",
+      "lead": "在 Autional 中，AI 智能体、机器人与 IoT 设备都是一等身份主体。每种 NHI 类型都有各自的生命周期状态机与认证方式。",
+      "items": [
+        {
+          "label": "智能体",
+          "states": "：provisioning → active → rotating → revoked → deleted"
+        },
+        {
+          "label": "机器人",
+          "states": "：commissioning → active → degraded → decommissioned → deleted"
+        },
+        {
+          "label": "设备",
+          "states": "：unpaired → active → transferring → revoked → deleted"
+        }
+      ]
+    }
+  },
+  "compliance": {
+    "meta": {
+      "title": "合规 — Autional 文档",
+      "description": "Autional 的合规工具 —— 支持 ISO 27001、SOC 2、GDPR、HIPAA、PCI DSS、PSD2、PIPL、等保 2.0 等 10 种合规标准，并提供面向审计的架构。"
+    },
+    "title": "合规工具",
+    "warning1": "⚠️ Autional 未获得任何合规框架的认证。",
+    "warning2": {
+      "before": "本页介绍的工具用于帮助你",
+      "strong1": "管理组织内部的合规流程",
+      "mid": "，它们",
+      "strong2": "不是认证",
+      "after": "，也不代表 Autional 持有相关认证。取得认证需要组织自身的制度、控制措施与第三方审计，请勿仅依赖这些工具实现合规。"
+    },
+    "lead": "Autional 内置 10 种合规标准的控制项库与流程工具。这些工具旨在帮助你的组织管理合规流程 —— 它们本身并不是认证。",
+    "tooling": {
+      "title": "内置合规工具",
+      "framework": "标准",
+      "support": "内置支持",
+      "rows": [
+        {
+          "standard": "GDPR",
+          "support": "DSAR 请求管理、16 服务协同的数据擦除编排、同意记录审计追踪（含 13 项控制项）"
+        },
+        {
+          "standard": "ISO/IEC 27001:2022",
+          "support": "Annex A 访问控制族（A.5.15–A.8.16）控制项台账（含 10 项控制项）"
+        },
+        {
+          "standard": "SOC 2 Type II",
+          "support": "CC6 逻辑和物理访问控制通用标准控制项（含 10 项控制项）"
+        },
+        {
+          "standard": "PCI DSS v4.0.1",
+          "support": "IAM 相关控制项与证据管理（含 14 项控制项）"
+        },
+        {
+          "standard": "HIPAA Security Rule",
+          "support": "IAM 相关控制项（含 9 项控制项）"
+        },
+        {
+          "standard": "PSD2 SCA",
+          "support": "强客户认证（SCA）技术要求控制项（含 8 项控制项）"
+        },
+        {
+          "standard": "PIPL（个人信息保护法）",
+          "support": "告知-同意等 IAM 相关条款控制项（含 10 项控制项）"
+        },
+        {
+          "standard": "等保 2.0 三级",
+          "support": "身份鉴别 / 访问控制 / 安全审计控制项（含 20 项控制项）"
+        },
+        {
+          "standard": "NIST SP 800-63B v4",
+          "support": "认证器与验证器要求（AAL1–AAL3）控制项（含 17 项控制项）"
+        },
+        {
+          "standard": "未成年人保护综合标准",
+          "support": "COPPA / PIPL 未成年保护 / GDPR Art.8 / UK Code 汇总控制项（含 12 项控制项）"
+        }
+      ]
+    },
+    "features": {
+      "title": "关键技术特性"
+    },
+    "hash": {
+      "title": "哈希链审计日志",
+      "body": "每个认证事件都会记录到 Merkle 哈希链中，链的完整性可通过密码学方式验证，为审计方提供防篡改证据。"
+    },
+    "retention": {
+      "title": "数据留存",
+      "body": "可按数据类型配置留存策略，支持定时归档与清理任务；审计日志可永久留存。"
+    },
+    "classification": {
+      "title": "数据分级",
+      "body": "提供数据分类分级管理：按数据类别标注敏感级别，级别值域可按组织口径自定义。"
+    }
+  },
+  "configuration": {
+    "meta": {
+      "title": "配置 — Autional 文档",
+      "description": "Autional 全部 27 个微服务的常用环境变量参考 —— 数据库、Redis、RabbitMQ、JWT 及服务专有配置。"
+    },
+    "title": "配置参考",
+    "lead": {
+      "before": "Autional 全部 27 个微服务使用的常用环境变量（完整变量以各服务的 ",
+      "mid": " 为准）。可在 ",
+      "after": " 中覆盖。"
+    },
+    "table": {
+      "variable": "变量",
+      "description": "说明",
+      "required": "必填",
+      "default": "默认值"
+    },
+    "vars": [
+      "令牌签名密钥（至少 32 个字符）",
+      "用于 argon2id 密码哈希的 Pepper",
+      "服务间认证密钥",
+      "PostgreSQL 主机名",
+      "PostgreSQL 端口",
+      "PostgreSQL 用户名",
+      "PostgreSQL 密码",
+      "Redis 主机名",
+      "Redis 端口",
+      "Redis 密码",
+      "RabbitMQ 主机名",
+      "RabbitMQ 端口",
+      "RabbitMQ 用户名",
+      "RabbitMQ 密码",
+      "运行环境：development | production",
+      "MongoDB 主机名（审计服务）",
+      "MongoDB 端口（审计服务）",
+      "MinIO/S3 端点（存储服务）"
+    ],
+    "files": {
+      "title": "配置文件",
+      "lead": {
+        "before": "每个服务从 ",
+        "mid": " 读取 YAML 配置，数据库相关配置位于 ",
+        "after": "。查看全部配置文件："
+      }
+    }
+  },
+  "deployment": {
+    "meta": {
+      "title": "部署 — Autional 文档",
+      "description": "在生产环境部署 Autional —— Docker Compose 编排、关键环境变量与监控栈。"
+    },
+    "title": "部署",
+    "lead": "使用 Docker Compose 编排在生产环境部署 Autional。",
+    "compose": {
+      "title": "Docker Compose",
+      "code": "# 生产环境：使用独立的 infra + services compose 文件\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+    },
+    "config": {
+      "title": "配置",
+      "lead": "生产环境需要设置的关键环境变量：",
+      "variable": "变量",
+      "description": "说明",
+      "required": "必填",
+      "rows": [
+        {
+          "name": "JWT_SECRET",
+          "desc": "令牌签名密钥（至少 32 个字符）"
+        },
+        {
+          "name": "PASSWORD_PEPPER",
+          "desc": "用于密码哈希的 Pepper"
+        },
+        {
+          "name": "INTERNAL_API_KEY",
+          "desc": "服务间认证"
+        },
+        {
+          "name": "POSTGRES_PASSWORD",
+          "desc": "PostgreSQL 密码"
+        },
+        {
+          "name": "REDIS_PASSWORD",
+          "desc": "Redis 密码"
+        }
+      ]
+    },
+    "tls": {
+      "title": "SSL / TLS",
+      "before": "生产环境请使用 Let's Encrypt 或你自己的 CA。网关 nginx 负责 SSL 终止。参考用的自签名证书见 ",
+      "after": "。"
+    },
+    "monitoring": {
+      "title": "监控",
+      "lead": "内置 Prometheus + Grafana 仪表盘，用于监控全部 27 个服务；告警路由由 Alertmanager 处理；链路追踪通过 Jaeger 采集 OpenTelemetry 数据。",
+      "code": "# 监控栈随整套环境编排一并启动（docker-compose.dev-cloud.yml 含 Prometheus / Grafana / Alertmanager / Jaeger）\n# Grafana: http://localhost:20300"
+    }
+  },
+  "sdk": {
+    "meta": {
+      "title": "SDK — Autional 文档",
+      "description": "Autional 的 npm 包 —— @autional 作用域下的 React SDK、按服务划分的 API 客户端、接入脚手架与设计系统 / 工程配置包。"
+    },
+    "title": "SDK",
+    "lead": {
+      "before": "Autional 在 npm 上提供 ",
+      "mid": " 作用域下的软件包：React SDK、按服务划分的 API 客户端、接入脚手架，以及设计系统与工程配置包。"
+    },
+    "react": {
+      "title": "React",
+      "lead": "为应用注入认证上下文的 Provider 组件："
+    },
+    "onboarding": {
+      "title": "接入脚手架",
+      "lead": "交互式创建并接入一个新项目："
+    },
+    "packages": {
+      "title": "全部包",
+      "name": "包",
+      "description": "说明",
+      "items": [
+        {
+          "name": "@autional/react",
+          "desc": "React SDK：认证 hooks 与组件"
+        },
+        {
+          "name": "@autional/onboard",
+          "desc": "接入脚手架 CLI：创建并接入 React / Vue / Next.js 项目"
+        },
+        {
+          "name": "@autional/ui",
+          "desc": "React 组件库"
+        },
+        {
+          "name": "@autional/tokens",
+          "desc": "设计令牌（CSS 变量）"
+        },
+        {
+          "name": "@autional/tailwind-preset",
+          "desc": "Tailwind 预设（品牌主题）"
+        },
+        {
+          "name": "@autional/shared",
+          "desc": "共享工具：API client、认证、类型与 hooks"
+        },
+        {
+          "name": "@autional/eslint-config",
+          "desc": "ESLint 共享配置"
+        },
+        {
+          "name": "@autional/tsconfig",
+          "desc": "TypeScript 共享配置"
+        }
+      ]
+    },
+    "catalog": {
+      "before": "完整 SDK 目录见 ",
+      "mid": "，源码见 ",
+      "after": "。",
+      "orgLink": "GitHub 上的 autional 组织"
+    }
+  }
+}

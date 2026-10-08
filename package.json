@@ -12,8 +12,8 @@
     "preview": "astro preview --port 4432"
   },
   "dependencies": {
-    "@autional/tailwind-preset": "0.1.0-rc.9",
-    "@autional/tokens": "0.1.0-rc.15",
+    "@autional/tailwind-preset": "0.1.0-rc.10",
+    "@autional/tokens": "0.1.0-rc.16",
     "@astrojs/sitemap": "^3.7.3",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.0.0",
@@ -24,3 +24,4 @@
     "typescript": "^5.8.3"
   }
 }
+

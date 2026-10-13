@@ -80,7 +80,7 @@
       {
         "title": "克隆并启动平台",
         "body": "启动本地整套环境，随后即可浏览每个服务、网关路由与运行依赖。",
-        "command": "# 启动本地整套环境（中间件 + 全部 27 个服务），首次约需 2-3 分钟\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+        "command": "# 启动本地整套环境（编排文件随私有化部署交付物提供；中间件 + 全部 27 个服务），首次约需 2-3 分钟\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
       },
       {
         "title": "验证网关",
@@ -119,12 +119,12 @@
   "api": {
     "meta": {
       "title": "API 参考 — Autional 文档",
-      "description": "Autional API 参考 —— 27 个微服务的 OpenAPI 3.0 规范、1,400+ REST 端点，以及经网关访问的交互式 Swagger 文档。"
+      "description": "Autional API 参考 —— 27 个微服务的 Swagger 2.0 规范、1,400+ REST 端点，以及经网关访问的交互式 Swagger 文档。"
     },
     "title": "API 参考",
     "lead": {
       "before": "全部 27 个微服务都提供 ",
-      "linkText": "OpenAPI 3.0",
+      "linkText": "Swagger 2.0",
       "href": "https://spec.openapis.org/oas/v3.0.3",
       "after": " 规范。你可以通过网关浏览交互式文档，也可以直接获取原始规范文件。"
     },
@@ -642,7 +642,7 @@
     "lead": "使用 Docker Compose 编排在生产环境部署 Autional。",
     "compose": {
       "title": "Docker Compose",
-      "code": "# 生产环境：使用独立的 infra + services compose 文件\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+      "code": "# 生产环境：使用独立的 infra + services compose 文件（随私有化部署交付物提供）\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
     },
     "config": {
       "title": "配置",

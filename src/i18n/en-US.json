@@ -80,7 +80,7 @@
       {
         "title": "Clone and boot the platform",
         "body": "Start the local stack so every service, gateway route, and operational dependency is available for exploration.",
-        "command": "# Boot the full local stack (middleware + all 27 services); the first run takes about 2-3 minutes\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+        "command": "# Boot the full local stack (the compose files ship with the private-deployment deliverable; middleware + all 27 services); the first run takes about 2-3 minutes\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
       },
       {
         "title": "Verify the gateway",
@@ -119,12 +119,12 @@
   "api": {
     "meta": {
       "title": "API Reference — Autional Docs",
-      "description": "Autional API reference — 27 microservices with OpenAPI 3.0 specs, 1,400+ REST endpoints, and interactive Swagger docs via the gateway."
+      "description": "Autional API reference — 27 microservices with Swagger 2.0 specs, 1,400+ REST endpoints, and interactive Swagger docs via the gateway."
     },
     "title": "API Reference",
     "lead": {
       "before": "All 27 microservices ship ",
-      "linkText": "OpenAPI 3.0",
+      "linkText": "Swagger 2.0",
       "href": "https://spec.openapis.org/oas/v3.0.3",
       "after": " specifications. Browse the interactive docs via the gateway, or fetch the raw spec files directly."
     },
@@ -642,7 +642,7 @@
     "lead": "Deploy Autional in production with Docker Compose orchestration.",
     "compose": {
       "title": "Docker Compose",
-      "code": "# Production: use separate infra + services compose files\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
+      "code": "# Production: use separate infra + services compose files (shipped with the private-deployment deliverable)\ndocker compose -f docker-compose.infra.yml -f docker-compose.monolith.yml up -d"
     },
     "config": {
       "title": "Configuration",

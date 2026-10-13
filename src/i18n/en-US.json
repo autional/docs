@@ -712,7 +712,7 @@
       "lead": "Interactively create and onboard a new project:"
     },
     "packages": {
-      "title": "All Packages",
+      "title": "Core Packages",
       "name": "Package",
       "description": "Description",
       "items": [

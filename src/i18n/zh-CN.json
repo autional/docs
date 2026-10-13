@@ -712,7 +712,7 @@
       "lead": "交互式创建并接入一个新项目："
     },
     "packages": {
-      "title": "全部包",
+      "title": "核心包",
       "name": "包",
       "description": "说明",
       "items": [

@@ -13,7 +13,7 @@ const tooling = t('compliance.tooling', { returnObjects: true }) as {
   title: string;
   framework: string;
   support: string;
-  rows: { standard: string; support: string }[];
+  rows: { standard: string; href: string; support: string }[];
 };
 ---
 <DocLayout title={t('compliance.meta.title')} description={t('compliance.meta.description')}>
@@ -26,7 +26,7 @@ const tooling = t('compliance.tooling', { returnObjects: true }) as {
 
 <h2 class="text-xl font-bold mb-3 mt-8" data-i18n="compliance.tooling.title">{tooling.title}</h2>
 <table class="w-full text-sm mb-6 border-collapse"><thead><tr class="border-b border-neutral-200"><th class="text-left font-medium py-2 px-2" data-i18n="compliance.tooling.framework">{tooling.framework}</th><th class="text-left font-medium py-2 px-2" data-i18n="compliance.tooling.support">{tooling.support}</th></tr></thead><tbody>
-{tooling.rows.map((row, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2" data-i18n={`compliance.tooling.rows.${index}.standard`}>{row.standard}</td><td class="py-2 px-2" data-i18n={`compliance.tooling.rows.${index}.support`}>{row.support}</td></tr>)}
+{tooling.rows.map((row, index) => <tr class="border-b border-neutral-100"><td class="py-2 px-2"><a href={row.href} target="_blank" rel="noopener noreferrer" class="text-primary-600 hover:underline" data-i18n={`compliance.tooling.rows.${index}.standard`}>{row.standard}</a></td><td class="py-2 px-2" data-i18n={`compliance.tooling.rows.${index}.support`}>{row.support}</td></tr>)}
 </tbody></table>
 
 <h2 class="text-xl font-bold mb-3 mt-8" data-i18n="compliance.features.title">{t('compliance.features.title')}</h2>

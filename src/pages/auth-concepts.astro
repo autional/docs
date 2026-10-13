@@ -1,6 +1,7 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
 import { t } from '../i18n';
+import StandardsRefs from '../components/StandardsRefs.astro';
 
 const modes = t('authConcepts.modes', { returnObjects: true }) as {
   title: string;
@@ -17,6 +18,11 @@ const hashing = t('authConcepts.hashing', { returnObjects: true }) as {
   after: string;
 };
 const oauthItems = t('authConcepts.oauth.items', { returnObjects: true }) as string[];
+const standards = t('authConcepts.standards', { returnObjects: true }) as {
+  title: string;
+  lead: string;
+  items: { label: string; href: string }[];
+};
 ---
 <DocLayout title={t('authConcepts.meta.title')} description={t('authConcepts.meta.description')}>
 <h1 class="text-3xl font-bold mb-6" data-i18n="authConcepts.title">{t('authConcepts.title')}</h1>
@@ -41,4 +47,10 @@ const oauthItems = t('authConcepts.oauth.items', { returnObjects: true }) as str
 </ul>
 <h2 class="text-xl font-bold mb-3 mt-8" data-i18n="authConcepts.saml.title">{t('authConcepts.saml.title')}</h2>
 <p class="mb-4 text-neutral-600" data-i18n="authConcepts.saml.body">{t('authConcepts.saml.body')}</p>
+<StandardsRefs
+  keyPrefix="authConcepts.standards"
+  title={standards.title}
+  lead={standards.lead}
+  items={standards.items}
+/>
 </DocLayout>

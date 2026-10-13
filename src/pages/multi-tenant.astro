@@ -1,6 +1,7 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
 import { t } from '../i18n';
+import StandardsRefs from '../components/StandardsRefs.astro';
 
 const isolation = t('multiTenant.isolation', { returnObjects: true }) as {
   title: string;
@@ -17,6 +18,11 @@ const nhi = t('multiTenant.nhi', { returnObjects: true }) as {
   title: string;
   lead: string;
   items: { label: string; states: string }[];
+};
+const standards = t('multiTenant.standards', { returnObjects: true }) as {
+  title: string;
+  lead: string;
+  items: { label: string; href: string }[];
 };
 ---
 <DocLayout title={t('multiTenant.meta.title')} description={t('multiTenant.meta.description')}>
@@ -40,4 +46,10 @@ const nhi = t('multiTenant.nhi', { returnObjects: true }) as {
 <ul class="list-disc pl-6 space-y-1 text-sm text-neutral-600 mb-6">
 {nhi.items.map((item, index) => <li><strong data-i18n={`multiTenant.nhi.items.${index}.label`}>{item.label}</strong><span data-i18n={`multiTenant.nhi.items.${index}.states`}>{item.states}</span></li>)}
 </ul>
+<StandardsRefs
+  keyPrefix="multiTenant.standards"
+  title={standards.title}
+  lead={standards.lead}
+  items={standards.items}
+/>
 </DocLayout>

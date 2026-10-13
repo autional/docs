@@ -122,7 +122,12 @@
       "description": "Autional API 参考 —— 27 个微服务的 OpenAPI 3.0 规范、1,400+ REST 端点，以及经网关访问的交互式 Swagger 文档。"
     },
     "title": "API 参考",
-    "lead": "全部 27 个微服务都提供 OpenAPI 3.0 规范。你可以通过网关浏览交互式文档，也可以直接获取原始规范文件。",
+    "lead": {
+      "before": "全部 27 个微服务都提供 ",
+      "linkText": "OpenAPI 3.0",
+      "href": "https://spec.openapis.org/oas/v3.0.3",
+      "after": " 规范。你可以通过网关浏览交互式文档，也可以直接获取原始规范文件。"
+    },
     "interactiveTitle": "交互式 API 文档",
     "endpoints": {
       "title": "关键端点",
@@ -264,6 +269,24 @@
     "saml": {
       "title": "SAML 2.0",
       "body": "通过 SAML 2.0 IdP 实现企业单点登录（SSO），支持元数据交换、SLO 与属性映射，可在管理控制台中配置。"
+    },
+    "standards": {
+      "title": "标准与参考",
+      "lead": "Autional 的认证栈实现了以下公开标准：",
+      "items": [
+        { "label": "OAuth 2.1（Internet-Draft，draft-ietf-oauth-v2-1）", "href": "https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/" },
+        { "label": "OpenID Connect Core 1.0", "href": "https://openid.net/specs/openid-connect-core-1_0.html" },
+        { "label": "RFC 7636 — PKCE", "href": "https://www.rfc-editor.org/rfc/rfc7636.html" },
+        { "label": "RFC 8628 — 设备授权授予", "href": "https://www.rfc-editor.org/rfc/rfc8628.html" },
+        { "label": "RFC 8693 — 令牌交换", "href": "https://www.rfc-editor.org/rfc/rfc8693.html" },
+        { "label": "RFC 7591 — 动态客户端注册", "href": "https://www.rfc-editor.org/rfc/rfc7591.html" },
+        { "label": "RFC 9396 — 富授权请求", "href": "https://www.rfc-editor.org/rfc/rfc9396.html" },
+        { "label": "RFC 9449 — DPoP", "href": "https://www.rfc-editor.org/rfc/rfc9449.html" },
+        { "label": "JARM（JWT 安全授权响应模式）", "href": "https://openid.net/specs/oauth-v2-jarm.html" },
+        { "label": "RFC 7519 — JWT", "href": "https://www.rfc-editor.org/rfc/rfc7519.html" },
+        { "label": "RFC 9106 — Argon2", "href": "https://www.rfc-editor.org/rfc/rfc9106.html" },
+        { "label": "SAML 2.0 Core（OASIS）", "href": "https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf" }
+      ]
     }
   },
   "security": {
@@ -371,6 +394,19 @@
     "audit": {
       "title": "审计追踪",
       "body": "所有认证事件都会记录到不可篡改的 Merkle 哈希链审计日志中，并通过密码学验证确保防篡改完整性。"
+    },
+    "standards": {
+      "title": "标准与参考",
+      "lead": "本页描述的控制项遵循以下公开标准：",
+      "items": [
+        { "label": "RFC 6238 — TOTP", "href": "https://www.rfc-editor.org/rfc/rfc6238.html" },
+        { "label": "W3C WebAuthn Level 3", "href": "https://www.w3.org/TR/webauthn-3/" },
+        { "label": "NIST SP 800-63B（Rev. 4）", "href": "https://pages.nist.gov/800-63-4/sp800-63b.html" },
+        { "label": "RFC 9700 — OAuth 2.0 安全最佳实践", "href": "https://www.rfc-editor.org/rfc/rfc9700.html" },
+        { "label": "NIST SP 800-38D — AES-GCM", "href": "https://csrc.nist.gov/pubs/sp/800/38/d/final" },
+        { "label": "GB/T 32907-2016 — SM4", "href": "https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=7803DE42D3BC5E80B0C3E5D8E873D56A" },
+        { "label": "Have I Been Pwned — API v3", "href": "https://haveibeenpwned.com/API/v3" }
+      ]
     }
   },
   "multiTenant": {
@@ -451,6 +487,16 @@
           "states": "：unpaired → active → transferring → revoked → deleted"
         }
       ]
+    },
+    "standards": {
+      "title": "标准与参考",
+      "lead": "租户开通与联合身份遵循以下标准：",
+      "items": [
+        { "label": "RFC 7643 — SCIM 2.0 核心 Schema", "href": "https://www.rfc-editor.org/rfc/rfc7643.html" },
+        { "label": "RFC 7644 — SCIM 2.0 协议", "href": "https://www.rfc-editor.org/rfc/rfc7644.html" },
+        { "label": "SAML 2.0 Core（OASIS）", "href": "https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf" },
+        { "label": "OpenID Connect Core 1.0", "href": "https://openid.net/specs/openid-connect-core-1_0.html" }
+      ]
     }
   },
   "compliance": {
@@ -475,43 +521,53 @@
       "rows": [
         {
           "standard": "GDPR",
-          "support": "DSAR 请求管理、16 服务协同的数据擦除编排、同意记录审计追踪（含 13 项控制项）"
+          "support": "DSAR 请求管理、16 服务协同的数据擦除编排、同意记录审计追踪（含 13 项控制项）",
+          "href": "https://eur-lex.europa.eu/eli/reg/2016/679/oj"
         },
         {
           "standard": "ISO/IEC 27001:2022",
-          "support": "Annex A 访问控制族（A.5.15–A.8.16）控制项台账（含 10 项控制项）"
+          "support": "Annex A 访问控制族（A.5.15–A.8.16）控制项台账（含 10 项控制项）",
+          "href": "https://www.iso.org/standard/27001"
         },
         {
           "standard": "SOC 2 Type II",
-          "support": "CC6 逻辑和物理访问控制通用标准控制项（含 10 项控制项）"
+          "support": "CC6 逻辑和物理访问控制通用标准控制项（含 10 项控制项）",
+          "href": "https://www.aicpa-cima.com/resources/landing/trust-services-criteria"
         },
         {
           "standard": "PCI DSS v4.0.1",
-          "support": "IAM 相关控制项与证据管理（含 14 项控制项）"
+          "support": "IAM 相关控制项与证据管理（含 14 项控制项）",
+          "href": "https://www.pcisecuritystandards.org/document_library/"
         },
         {
           "standard": "HIPAA Security Rule",
-          "support": "IAM 相关控制项（含 9 项控制项）"
+          "support": "IAM 相关控制项（含 9 项控制项）",
+          "href": "https://www.hhs.gov/hipaa/for-professionals/security/index.html"
         },
         {
           "standard": "PSD2 SCA",
-          "support": "强客户认证（SCA）技术要求控制项（含 8 项控制项）"
+          "support": "强客户认证（SCA）技术要求控制项（含 8 项控制项）",
+          "href": "https://www.eba.europa.eu/legacy/regulation-and-policy/regulatory-activities/payment-services-and-electronic-money-0"
         },
         {
           "standard": "PIPL（个人信息保护法）",
-          "support": "告知-同意等 IAM 相关条款控制项（含 10 项控制项）"
+          "support": "告知-同意等 IAM 相关条款控制项（含 10 项控制项）",
+          "href": "http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html"
         },
         {
           "standard": "等保 2.0 三级",
-          "support": "身份鉴别 / 访问控制 / 安全审计控制项（含 20 项控制项）"
+          "support": "身份鉴别 / 访问控制 / 安全审计控制项（含 20 项控制项）",
+          "href": "https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=BAFB47E8874764186BDB7865E8344DAF"
         },
         {
           "standard": "NIST SP 800-63B v4",
-          "support": "认证器与验证器要求（AAL1–AAL3）控制项（含 17 项控制项）"
+          "support": "认证器与验证器要求（AAL1–AAL3）控制项（含 17 项控制项）",
+          "href": "https://pages.nist.gov/800-63-4/sp800-63b.html"
         },
         {
           "standard": "未成年人保护综合标准",
-          "support": "COPPA / PIPL 未成年保护 / GDPR Art.8 / UK Code 汇总控制项（含 12 项控制项）"
+          "support": "COPPA / PIPL 未成年保护 / GDPR Art.8 / UK Code 汇总控制项（含 12 项控制项）",
+          "href": "https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa"
         }
       ]
     },
@@ -626,6 +682,15 @@
       "title": "监控",
       "lead": "内置 Prometheus + Grafana 仪表盘，用于监控全部 27 个服务；告警路由由 Alertmanager 处理；链路追踪通过 Jaeger 采集 OpenTelemetry 数据。",
       "code": "# 监控栈随整套环境编排一并启动（docker-compose.dev-cloud.yml 含 Prometheus / Grafana / Alertmanager / Jaeger）\n# Grafana: http://localhost:20300"
+    },
+    "standards": {
+      "title": "相关文档",
+      "lead": "本页涉及的生产栈由各自维护方提供文档：",
+      "items": [
+        { "label": "OpenTelemetry 规范", "href": "https://opentelemetry.io/docs/specs/otel/" },
+        { "label": "Prometheus 文档", "href": "https://prometheus.io/docs/introduction/overview/" },
+        { "label": "Let's Encrypt 文档", "href": "https://letsencrypt.org/docs/" }
+      ]
     }
   },
   "sdk": {

@@ -1,6 +1,7 @@
 ---
 import DocLayout from '../layouts/DocLayout.astro';
 import { t } from '../i18n';
+import StandardsRefs from '../components/StandardsRefs.astro';
 
 const mfa = t('security.mfa', { returnObjects: true }) as {
   title: string;
@@ -16,6 +17,11 @@ const adaptive = t('security.adaptive', { returnObjects: true }) as {
   items: { label: string; body: string }[];
 };
 const policyItems = t('security.policy.items', { returnObjects: true }) as string[];
+const standards = t('security.standards', { returnObjects: true }) as {
+  title: string;
+  lead: string;
+  items: { label: string; href: string }[];
+};
 ---
 <DocLayout title={t('security.meta.title')} description={t('security.meta.description')}>
 <h1 class="text-3xl font-bold mb-6" data-i18n="security.title">{t('security.title')}</h1>
@@ -39,4 +45,10 @@ const policyItems = t('security.policy.items', { returnObjects: true }) as strin
 <p class="mb-4 text-neutral-600" data-i18n="security.encryption.body">{t('security.encryption.body')}</p>
 <h2 class="text-xl font-bold mb-3 mt-8" data-i18n="security.audit.title">{t('security.audit.title')}</h2>
 <p class="mb-4 text-neutral-600" data-i18n="security.audit.body">{t('security.audit.body')}</p>
+<StandardsRefs
+  keyPrefix="security.standards"
+  title={standards.title}
+  lead={standards.lead}
+  items={standards.items}
+/>
 </DocLayout>

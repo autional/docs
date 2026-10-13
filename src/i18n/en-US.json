@@ -122,7 +122,12 @@
       "description": "Autional API reference — 27 microservices with OpenAPI 3.0 specs, 1,400+ REST endpoints, and interactive Swagger docs via the gateway."
     },
     "title": "API Reference",
-    "lead": "All 27 microservices ship OpenAPI 3.0 specifications. Browse the interactive docs via the gateway, or fetch the raw spec files directly.",
+    "lead": {
+      "before": "All 27 microservices ship ",
+      "linkText": "OpenAPI 3.0",
+      "href": "https://spec.openapis.org/oas/v3.0.3",
+      "after": " specifications. Browse the interactive docs via the gateway, or fetch the raw spec files directly."
+    },
     "interactiveTitle": "Interactive API Docs",
     "endpoints": {
       "title": "Key Endpoints",
@@ -264,6 +269,24 @@
     "saml": {
       "title": "SAML 2.0",
       "body": "Enterprise single sign-on (SSO) via SAML 2.0 IdP, with metadata exchange, SLO, and attribute mapping. Configured through the admin console."
+    },
+    "standards": {
+      "title": "Standards & References",
+      "lead": "Autional's authentication stack implements the following published standards:",
+      "items": [
+        { "label": "OAuth 2.1 (Internet-Draft, draft-ietf-oauth-v2-1)", "href": "https://datatracker.ietf.org/doc/draft-ietf-oauth-v2-1/" },
+        { "label": "OpenID Connect Core 1.0", "href": "https://openid.net/specs/openid-connect-core-1_0.html" },
+        { "label": "RFC 7636 — PKCE", "href": "https://www.rfc-editor.org/rfc/rfc7636.html" },
+        { "label": "RFC 8628 — Device Authorization Grant", "href": "https://www.rfc-editor.org/rfc/rfc8628.html" },
+        { "label": "RFC 8693 — Token Exchange", "href": "https://www.rfc-editor.org/rfc/rfc8693.html" },
+        { "label": "RFC 7591 — Dynamic Client Registration", "href": "https://www.rfc-editor.org/rfc/rfc7591.html" },
+        { "label": "RFC 9396 — Rich Authorization Requests", "href": "https://www.rfc-editor.org/rfc/rfc9396.html" },
+        { "label": "RFC 9449 — DPoP", "href": "https://www.rfc-editor.org/rfc/rfc9449.html" },
+        { "label": "JARM (JWT Secured Authorization Response Mode)", "href": "https://openid.net/specs/oauth-v2-jarm.html" },
+        { "label": "RFC 7519 — JWT", "href": "https://www.rfc-editor.org/rfc/rfc7519.html" },
+        { "label": "RFC 9106 — Argon2", "href": "https://www.rfc-editor.org/rfc/rfc9106.html" },
+        { "label": "SAML 2.0 Core (OASIS)", "href": "https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf" }
+      ]
     }
   },
   "security": {
@@ -371,6 +394,19 @@
     "audit": {
       "title": "Audit Trail",
       "body": "All authentication events are recorded in an immutable Merkle hash chain audit log, with cryptographic verification for tamper-proof integrity."
+    },
+    "standards": {
+      "title": "Standards & References",
+      "lead": "The controls described here follow these published standards:",
+      "items": [
+        { "label": "RFC 6238 — TOTP", "href": "https://www.rfc-editor.org/rfc/rfc6238.html" },
+        { "label": "W3C WebAuthn Level 3", "href": "https://www.w3.org/TR/webauthn-3/" },
+        { "label": "NIST SP 800-63B (Rev. 4)", "href": "https://pages.nist.gov/800-63-4/sp800-63b.html" },
+        { "label": "RFC 9700 — OAuth 2.0 Security Best Current Practice", "href": "https://www.rfc-editor.org/rfc/rfc9700.html" },
+        { "label": "NIST SP 800-38D — AES-GCM", "href": "https://csrc.nist.gov/pubs/sp/800/38/d/final" },
+        { "label": "GB/T 32907-2016 — SM4", "href": "https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=7803DE42D3BC5E80B0C3E5D8E873D56A" },
+        { "label": "Have I Been Pwned — API v3", "href": "https://haveibeenpwned.com/API/v3" }
+      ]
     }
   },
   "multiTenant": {
@@ -451,6 +487,16 @@
           "states": ": unpaired → active → transferring → revoked → deleted"
         }
       ]
+    },
+    "standards": {
+      "title": "Standards & References",
+      "lead": "Tenant provisioning and federation follow these published standards:",
+      "items": [
+        { "label": "RFC 7643 — SCIM 2.0 Core Schema", "href": "https://www.rfc-editor.org/rfc/rfc7643.html" },
+        { "label": "RFC 7644 — SCIM 2.0 Protocol", "href": "https://www.rfc-editor.org/rfc/rfc7644.html" },
+        { "label": "SAML 2.0 Core (OASIS)", "href": "https://docs.oasis-open.org/security/saml/v2.0/saml-core-2.0-os.pdf" },
+        { "label": "OpenID Connect Core 1.0", "href": "https://openid.net/specs/openid-connect-core-1_0.html" }
+      ]
     }
   },
   "compliance": {
@@ -475,42 +521,52 @@
       "rows": [
         {
           "standard": "GDPR",
+          "href": "https://eur-lex.europa.eu/eli/reg/2016/679/oj",
           "support": "DSAR request management, 16-service erasure orchestration, consent audit trail (13 controls)"
         },
         {
           "standard": "ISO/IEC 27001:2022",
+          "href": "https://www.iso.org/standard/27001",
           "support": "Annex A access control family (A.5.15–A.8.16) control register (10 controls)"
         },
         {
           "standard": "SOC 2 Type II",
+          "href": "https://www.aicpa-cima.com/resources/landing/trust-services-criteria",
           "support": "CC6 logical and physical access common criteria controls (10 controls)"
         },
         {
           "standard": "PCI DSS v4.0.1",
+          "href": "https://www.pcisecuritystandards.org/document_library/",
           "support": "IAM-related controls and evidence management (14 controls)"
         },
         {
           "standard": "HIPAA Security Rule",
+          "href": "https://www.hhs.gov/hipaa/for-professionals/security/index.html",
           "support": "IAM-related controls (9 controls)"
         },
         {
           "standard": "PSD2 SCA",
+          "href": "https://www.eba.europa.eu/legacy/regulation-and-policy/regulatory-activities/payment-services-and-electronic-money-0",
           "support": "Strong Customer Authentication (SCA) technical requirement controls (8 controls)"
         },
         {
           "standard": "PIPL (Personal Information Protection Law)",
+          "href": "http://www.npc.gov.cn/npc/c2/c30834/202108/t20210820_313088.html",
           "support": "Notice-consent and related IAM provision controls (10 controls)"
         },
         {
           "standard": "Dengbao 2.0 Level 3",
+          "href": "https://openstd.samr.gov.cn/bzgk/gb/newGbInfo?hcno=BAFB47E8874764186BDB7865E8344DAF",
           "support": "Identity authentication / access control / security audit controls (20 controls)"
         },
         {
           "standard": "NIST SP 800-63B v4",
+          "href": "https://pages.nist.gov/800-63-4/sp800-63b.html",
           "support": "Authenticator and verifier requirement controls (AAL1–AAL3) (17 controls)"
         },
         {
           "standard": "Minor Protection Framework",
+          "href": "https://www.ftc.gov/legal-library/browse/rules/childrens-online-privacy-protection-rule-coppa",
           "support": "COPPA / PIPL minor protection / GDPR Art.8 / UK Code consolidated controls (12 controls)"
         }
       ]
@@ -626,6 +682,15 @@
       "title": "Monitoring",
       "lead": "Built-in Prometheus + Grafana dashboards monitor all 27 services; Alertmanager handles alert routing; tracing collects OpenTelemetry data via Jaeger.",
       "code": "# The monitoring stack ships with the full environment orchestration (docker-compose.dev-cloud.yml includes Prometheus / Grafana / Alertmanager / Jaeger)\n# Grafana: http://localhost:20300"
+    },
+    "standards": {
+      "title": "Related Documentation",
+      "lead": "The production stack referenced on this page is documented by its maintainers:",
+      "items": [
+        { "label": "OpenTelemetry Specification", "href": "https://opentelemetry.io/docs/specs/otel/" },
+        { "label": "Prometheus Documentation", "href": "https://prometheus.io/docs/introduction/overview/" },
+        { "label": "Let's Encrypt Documentation", "href": "https://letsencrypt.org/docs/" }
+      ]
     }
   },
   "sdk": {

@@ -7,3 +7,6 @@ pnpm-workspace.yaml
 
 # Build-time generated (scripts/gen-static.mjs via prebuild/predev; do not commit)
 public/robots.txt
+
+# 错误码文档页：构建前由 contracts/ + gen-errors-pages.mjs 生成（勿手改、勿入库）
+src/pages/errors/

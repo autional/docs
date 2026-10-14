@@ -5,11 +5,13 @@
   "scripts": {
     "gen-static": "node scripts/gen-static.mjs",
     "check-i18n": "node scripts/check-i18n.mjs",
-    "prebuild": "node scripts/gen-static.mjs && node scripts/check-i18n.mjs",
-    "predev": "node scripts/gen-static.mjs && node scripts/check-i18n.mjs",
+    "prebuild": "node scripts/gen-static.mjs && node scripts/check-i18n.mjs && node scripts/gen-errors-contract.mjs --check && node scripts/gen-errors-pages.mjs",
+    "predev": "node scripts/gen-static.mjs && node scripts/check-i18n.mjs && node scripts/gen-errors-contract.mjs --check && node scripts/gen-errors-pages.mjs",
     "dev": "astro dev --port 4432",
     "build": "astro build",
-    "preview": "astro preview --port 4432"
+    "preview": "astro preview --port 4432",
+    "gen:errors": "node scripts/gen-errors-contract.mjs && node scripts/gen-errors-pages.mjs",
+    "gen:errors:check": "node scripts/gen-errors-contract.mjs --check"
   },
   "dependencies": {
     "@autional/tailwind-preset": "0.1.0-rc.10",
@@ -24,4 +26,3 @@
     "typescript": "^5.8.3"
   }
 }
-

@@ -25,6 +25,7 @@ const UI_LABEL = {
   form_error: '表单 / 入参错误',
   expired: '已过期 → 重新获取 / 重新发起',
   reauth_required: '需重新认证 / 二次验证 → 引导登录或补验证',
+  credential_mismatch: '凭据不匹配（表单可修正）→ 提示重输，非会话过期',
   action_required: '非故障但需用户动作（未配置 / 额度已达）→ 中性提示 + CTA',
   session_expired: '会话过期 → 引导重新登录',
   forbidden: '无权限',

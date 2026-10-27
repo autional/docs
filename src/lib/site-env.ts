@@ -20,7 +20,7 @@ export const FALLBACK_LANG: Lang = (import.meta.env.PUBLIC_FALLBACK_LANG as Lang
 export const CDN_HOST: string = import.meta.env.PUBLIC_CDN_HOST ?? 'https://cdn.autional.cn';
 
 /** CDN 资产旧 pin —— 与迁移前 cn 基线同值（B2 卡片：pin 保持 de498ca0 不变）。 */
-export const CDN_PIN = 'v0.1.0-rc.f0db1b97';
+export const CDN_PIN = 'v0.1.0-rc.be30012d';
 
 /** CDN 资产 URL 拼接：cdnAsset('icons/favicon.svg')。 */
 export const cdnAsset = (path: string): string => `${CDN_HOST}/ui/${CDN_PIN}/${path}`;

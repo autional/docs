@@ -33,6 +33,16 @@ export const SITE_ROOT_DOMAIN: string =
 /** 兄弟站链接：brotherUrl('developer') → https://developer.autional.cn（随本区根域派生）。 */
 export const brotherUrl = (sub: string): string => `https://${sub}.${SITE_ROOT_DOMAIN}`;
 
+/**
+ * 兄弟区 docs 基址（.cn ↔ .com，hreflang 互指）。
+ *
+ * 两区是同一套文档的 zh / en 两面，页面路径一一对应 ⇒ 必须互相声明 hreflang，
+ * 否则英文用户可能搜到中文页（反之亦然）。
+ * x-default 指向 .com（全球面；.cn 面向中国大陆）。
+ */
+export const SIBLING_SITE_URL: string =
+  REGION === 'com' ? SITE_URL.replace(/\.com(\/|$)/, '.cn$1') : SITE_URL.replace(/\.cn(\/|$)/, '.com$1');
+
 /** GitHub 口径（W6 用户裁定：统一组织 github.com/autional + 本仓 docs）。 */
 export const GITHUB_REPO_URL = 'https://github.com/autional/docs';
 export const GITHUB_ORG_URL = 'https://github.com/autional';

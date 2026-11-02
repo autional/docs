@@ -29,8 +29,7 @@
       "sdk": "SDK",
       "apiReference": "API Reference",
       "apiWiki": "API Wiki",
-      "github": "GitHub",
-      "signIn": "Sign in"
+      "github": "GitHub"
     }
   },
   "common": {

@@ -29,8 +29,7 @@
       "sdk": "SDK",
       "apiReference": "API 参考",
       "apiWiki": "API Wiki",
-      "github": "GitHub",
-      "signIn": "登录"
+      "github": "GitHub"
     }
   },
   "common": {

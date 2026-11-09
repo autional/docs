@@ -29,6 +29,8 @@
       "sdk": "SDK",
       "apiReference": "API Reference",
       "apiWiki": "API Wiki",
+      "configConsole": "Config Console",
+      "secretCenter": "Secret Center",
       "github": "GitHub"
     }
   },

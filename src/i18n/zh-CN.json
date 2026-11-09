@@ -29,6 +29,8 @@
       "sdk": "SDK",
       "apiReference": "API 参考",
       "apiWiki": "API Wiki",
+      "configConsole": "配置中心",
+      "secretCenter": "密钥中心",
       "github": "GitHub"
     }
   },

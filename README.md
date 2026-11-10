@@ -1,5 +1,10 @@
 # Autional Docs
 
+> 🚨 **2026-11-10 托管变更**：`*.autional.cn` **已迁出 Vercel** —— 改为 mf01 构建（node:24-alpine + 钉版 pnpm）→ 香港自建托管。
+> `.cn` 的构建 env 由 workspace `shared/infra-ops/sites/sites.manifest.json` 注入；push 后由 mf01 cron（约 10 分钟）构建发布，不经 Vercel。
+> `*.autional.com` 仍在 Vercel —— 本文中涉及 Vercel 的构建/部署描述对 `.com` 仍然成立。
+> 现行口径：workspace `docs/AUTIONAL-CN-SITES-SELF-HOST.md`。
+
 **Sites**: [docs.autional.com](https://docs.autional.com) (com) / [docs.autional.cn](https://docs.autional.cn) (cn)
 **Stack**: Astro 5 + Tailwind 3.4
 **Repository**: [github.com/autional/docs](https://github.com/autional/docs)
@@ -25,4 +30,4 @@ REGION=com SITE_URL=https://docs.autional.com DEFAULT_LANG=en FALLBACK_LANG=en C
 
 ## Deploy
 
-Push to `main` — Vercel auto-deploys. Projects: `docs` (com) / `cn-docs` (cn)；env 按项目分别注入。
+Push to `main` — `.com` 由 Vercel 自动部署（项目 ``docs``）；`.cn` 由 mf01 cron 构建发布（约 10 分钟，不经 Vercel）。env 按区分别注入。
